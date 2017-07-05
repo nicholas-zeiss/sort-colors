@@ -1,0 +1,29 @@
+{
+  "name": "sort",
+  "version": "1.0.0",
+  "description": "A visualizer for various common sorting algorithms",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack && node app/server/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicholas-zeiss/sort-colors.git"
+  },
+  "author": "Nicholas Zeiss",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nicholas-zeiss/sort-colors/issues"
+  },
+  "homepage": "https://github.com/nicholas-zeiss/sort-colors#readme",
+  "dependencies": {
+    "babel": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "bootstrap": "^3.3.7",
+    "express": "^4.15.3",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "webpack": "^3.0.0"
+  }
+}
