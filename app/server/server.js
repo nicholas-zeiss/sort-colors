@@ -1,5 +1,5 @@
 /**
-Here we create our server using express. It only serves up static files (index.html, bundle.js, our css, and the jquery/bootstrap minified scrips)
+Here we create our server using express. It only serves up static files (index.html, bundle.js, our css, and the jquery/bootstrap minified scripts) and is quite simple.
 **/
 
 const express = require('express');
