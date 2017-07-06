@@ -5,30 +5,22 @@ This component allows us to choose which sorting algorithm we desire and to star
 import React from 'react';
 
 
-class Controls extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-
-		};
-	}
-
-	render() {
-		return (
-			<div className='btn-group btn-group-lg'>
-				<div className='btn-group dropup'>
-					<button type='button'className="btn btn-default btn-lg dropdown-toggle" data-toggle="dropdown">
-						Choose Algorithm &nbsp;<span className='caret'></span>
-					</button>
-					<ul className='dropdown-menu'>
-						<li><a>button</a></li>
-						<li><a>merge</a></li>
-					</ul>
-				</div>
-				<button type='button' className='btn btn-success btn-lg' id='start-btn'>Start</button>
+const Controls = (props) => {
+	return (
+		<div className='btn-group btn-group-lg' id='controls'>
+			<div className='btn-group dropup'>
+				<button type='button'className="btn btn-default btn-lg dropdown-toggle" data-toggle="dropdown">
+					Choose Algorithm &nbsp;<span className='caret'></span>
+				</button>
+				<ul className='dropdown-menu'>
+					{props.algorithms.map(alg => <li key={alg}><a onClick={props.chooseAlgorithm.bind(null, alg)}>{alg}</a></li>)}
+				</ul>
 			</div>
-		);
-	}
+			<button type='button' className='btn btn-success btn-lg' id='start-btn' onClick={props.toggleSorting}>
+				{props.sorting ? 'Pause' : 'Start'}&nbsp;
+			</button>
+		</div>
+	);
 }
 
 export default Controls;
