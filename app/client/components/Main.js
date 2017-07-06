@@ -7,15 +7,21 @@ import React from 'react';
 import Controls from'./Controls';
 import View from './View';
 
-import Bubble from '../utils/Bubble.js';
-import Merge from '../utils/Merge.js';
+import Bubble from '../utils/Bubble';
+import Gnome from '../utils/Gnome';
+import Insertion from '../utils/Insertion';
+import Merge from '../utils/Merge';
+import Selection from '../utils/Selection';
 
-import Sorter from '../utils/Sorter.js';
+import Sorter from '../utils/Sorter';
 
 
 const ALGORITHMS = {
 	Bubble: Bubble,
-	Merge: Merge
+	Gnome: Gnome,
+	Insertion: Insertion,
+	Merge: Merge,
+	Selection: Selection
 }
 
 const KEYS = Object.keys(ALGORITHMS).sort();
@@ -30,9 +36,9 @@ class Main extends React.Component {
 			canvasWidth: 500,
 			canvasDiv: null,							//holds a reference to the div where View is rendered so we can track it's dimensions and pass it down to View
 			sorting: false,
-			algorithm: 'Bubble',
-			sorter: new Sorter(Bubble, 50),
-			numItemsToSort: 50,
+			algorithm: 'Bubble',							
+			sorter: new Sorter(Bubble, 25),	
+			numItemsToSort: 25,
 			intervalID: undefined
 		};
 
@@ -63,6 +69,9 @@ class Main extends React.Component {
 		};
 	}
 
+	/**
+	Allows us to start and stop sorting, animations and the sort itself is controlled by an interval we create
+	**/
 	toggleSorting() {
 		if (!this.state.sorting) {
 			let id = setInterval(() => {
@@ -73,7 +82,7 @@ class Main extends React.Component {
 				}
 				
 				this.setState({}); 
-			}, 15);
+			}, 25);
 
 			this.setState({
 				sorting: true,
@@ -84,15 +93,21 @@ class Main extends React.Component {
 		}
 	}
 
+	/**
+	Called by the animating interval created in toggleSorting if sort is completed, or by user is the pause button is activated
+	**/
 	stopSorting() {
 		clearInterval(this.state.intervalID);
 		
 		this.setState({
 			sorting: false,
-				ntervalID: undefined
+			intervalID: undefined
 		});
 	}
 
+	/**
+	Sent as a prop to Controls, allows us to change algorithms if the sort is not in progress
+	**/
 	chooseAlgorithm(alg) {
 		if (alg !== this.state.algorithm && !this.state.sorting) {
 			this.state.sorter.reset(ALGORITHMS[alg], this.state.numItemsToSort);

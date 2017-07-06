@@ -19,16 +19,21 @@ class View extends React.Component {
 		});
 	}
 
+	/**
+	Runs for each change in the data being sorted
+	**/
 	componentDidUpdate() {
 		let ctx = this.state.container;
 
-		ctx.fillStyle = 'white';
+		ctx.fillStyle = 'white';																		//background
 		ctx.fillRect(0, 0, this.props.width, this.props.height);
 
 		let width = this.props.width / this.props.data.length;
 
 		for (let i = 0; i < this.props.data.length; i++) {
-			ctx.fillStyle = Math.abs(i - this.props.active) < 2 ? 'red' : 'black';
+			ctx.fillStyle = Math.abs(i - this.props.active) == 0 ? 'red' : 'black';			//red if the current piece of data is being sorted by the algorithm,
+																																									//or it is next to that piece
+
 			ctx.fillRect(i * width, (1 - this.props.data[i] / this.props.data.length) * this.props.height, width - 2, this.props.height);
 		}
 	}

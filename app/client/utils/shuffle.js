@@ -1,4 +1,6 @@
-
+/**
+A utility to randomize an array, used by Sorter to initialize data
+**/
 
 function shuffle(arr) {
 	let currIndex = arr.length;

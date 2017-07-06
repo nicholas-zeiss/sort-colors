@@ -1,4 +1,6 @@
-
+/**
+Here we have the class responsible for implementing bubble sort
+**/
 
 class Bubble {
 	constructor(data) {
@@ -9,7 +11,7 @@ class Bubble {
 		this.sorted = false;
 	}
 
-
+	//moves bubble sort forward by one comparison or swap
 	tick() {
 		if (this.sorted) {
 			return [this.data, true, -5];
@@ -31,7 +33,6 @@ class Bubble {
 
 		return [this.data, this.sorted, this.index];
 	}
-
 }
 
 export default Bubble;
