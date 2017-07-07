@@ -9,7 +9,7 @@ const Controls = (props) => {
 	return (
 		<div className='btn-group btn-group-lg' id='controls'>
 			<div className='btn-group dropup'>
-				<button type='button'className="btn btn-default btn-lg dropdown-toggle" data-toggle="dropdown">
+				<button type='button' className='btn btn-default btn-lg dropdown-toggle' data-toggle='dropdown'>
 					Choose Algorithm &nbsp;<span className='caret'></span>
 				</button>
 				<ul className='dropdown-menu'>
@@ -17,10 +17,12 @@ const Controls = (props) => {
 				</ul>
 			</div>
 			<button type='button' className='btn btn-success btn-lg' id='start-btn' onClick={props.toggleSorting}>
-				{props.sorting ? 'Pause' : 'Start'}&nbsp;
+				{props.sorting ? <span className='glyphicon glyphicon-pause'></span> : 
+				 props.sorted ? <span className='glyphicon glyphicon-refresh'></span> : <span className='glyphicon glyphicon-play'></span>}
 			</button>
+			<button type='button' className='btn btn-danger btn-lg' id='reset-btn' onClick={props.reset}><span className='glyphicon glyphicon-refresh'></span></button>
 		</div>
 	);
-}
+};
 
 export default Controls;

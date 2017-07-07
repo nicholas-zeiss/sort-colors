@@ -1,3 +1,4 @@
+
 module.exports = {
 	entry: './app/client/App.js',
 	output: {
@@ -7,7 +8,7 @@ module.exports = {
 	module: {
 		loaders: [{
 	      test: /\.js$/,
-	      loaders: ['babel-loader?presets[]=es2015&presets[]=react'],
+	      loader: ['babel-loader'],
 	      include: __dirname + '/app/client'
 	  }]
 	}

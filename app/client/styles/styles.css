@@ -2,11 +2,19 @@
 	outline: 0;
 }
 
+#reset-btn:focus {
+	outline: 0;
+}
+
 #algorithm {
 	margin-left: 50px;
 	margin-top: 0px;
 }
 
 #controls {
+	margin-top: 10px;
+}
+
+#settings {
 	margin-top: 10px;
 }

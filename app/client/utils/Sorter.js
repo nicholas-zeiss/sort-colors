@@ -16,6 +16,7 @@ class Sorter {
 		numItems = numItems || this.data.length;
 		this.data = shuffle(new Array(numItems).fill(1).map((n,i) => i + 1));
 		this.active = -5;
+		this.sorted = false;
 
 		if (newSort) {
 			this.sort = new newSort(this.data);

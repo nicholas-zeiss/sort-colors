@@ -24,7 +24,7 @@ class Selection {
 			this.i = ++this.unsorted;
 			this.min = [this.i, this.data[this.i]];
 		} else {
-			i++;
+			this.i++;
 		}
 
 

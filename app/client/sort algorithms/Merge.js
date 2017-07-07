@@ -3,7 +3,7 @@ Here we have the class for implementing merge sort. This is a bottom up implemen
 to render tick by tick
 **/
 
-import getIndices from './getIndices';
+import getIndices from '../utils/getIndices';
 
 class Merge {
 	constructor(data) {
