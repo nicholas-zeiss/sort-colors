@@ -27,9 +27,6 @@ class Selection {
 			this.i++;
 		}
 
-
-
-
 		return [this.data, this.sorted, this.i];
 	}
 }

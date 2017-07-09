@@ -39,11 +39,11 @@ class Main extends React.Component {
 			canvasDiv: null,							//holds a reference to the div where View is rendered so we can track it's dimensions and pass it down to View
 			sorting: false,
 			algorithm: 'Bubble',							
-			sorter: new Sorter(Bubble, 25),
+			sorter: new Sorter(Bubble, 100),
 			unsorted: true,	
-			numItemsToSort: 25,
+			numItemsToSort: 100,
 			intervalID: undefined,
-			delay: 50
+			delay: 30
 		};
 	}
 
@@ -93,7 +93,6 @@ class Main extends React.Component {
 				}, this.state.delay);
 
 				this.setState({
-					unsorted: false,
 					sorting: true,
 					intervalID: id
 				});
@@ -104,7 +103,7 @@ class Main extends React.Component {
 	}
 
 	/**
-	Called by the animating interval created in toggleSorting if sort is completed, or by user is the pause button is activated
+	Called by the animating interval created in toggleSorting if sort is completed, or by user if the pause button is activated
 	**/
 	pauseSorting() {
 		clearInterval(this.state.intervalID);
@@ -115,31 +114,48 @@ class Main extends React.Component {
 		});
 	}
 	
-	reset(cb) {
-		if (!this.state.unsorted) {
+	/**
+	Resets the sorter, generates new random data to sort
+	**/
+	reset() {
 			clearInterval(this.state.intervalID);
 			this.state.sorter.reset(ALGORITHMS[this.state.algorithm], this.state.numItemsToSort);
 
-			cb = typeof cb == 'function' ? cb : () => {};
-
 			this.setState({
-				unsorted: true,
 				sorting: false,
 				intervalID: undefined
-			}, cb);
-		}
+			});
+		
 	}
 
 	/**
 	Sent as a prop to Controls, allows us to change algorithms if the sort is not in progress
 	**/
 	chooseAlgorithm(alg) {
-		if (alg !== this.state.algorithm && !this.state.sorting) {
-			this.state.sorter.reset(ALGORITHMS[alg], this.state.numItemsToSort);
+		this.state.sorter.reset(ALGORITHMS[alg], this.state.numItemsToSort);
+		this.setState({
+			algorithm: alg,
+		  unsorted: true
+		});
+	}
+
+
+	changeDelay(n) {
+		console.log('changing delay by', n)
+		if (this.state.delay + n <= 500 && this.state.delay + n >= 5) {
 			this.setState({
-				algorithm: alg,
-			  unsorted: true
-			})
+				delay: this.state.delay + n
+			});
+		}
+	}
+
+	changeNum(n) {
+		if (this.state.numItemsToSort + n <= 100 && this.state.numItemsToSort + n >= 10) {
+			this.state.sorter.reset(ALGORITHMS[this.state.algorithm], this.state.numItemsToSort + n);
+
+			this.setState({
+				numItemsToSort: this.state.numItemsToSort + n
+			});	
 		}
 	}
 
@@ -161,7 +177,8 @@ class Main extends React.Component {
 					</div>
 					<div className='row'>
 						<div className='col-md-4 text-center'>
-							<Controls algorithms={KEYS} 
+							<Controls algorithms={KEYS}
+												currAlg={this.state.algorithm}
 												chooseAlgorithm={this.chooseAlgorithm.bind(this)}
 												sorting={this.state.sorting} 
 												sorted={this.state.sorter.sorted}
@@ -169,7 +186,11 @@ class Main extends React.Component {
 												toggleSorting={this.toggleSorting.bind(this)}/>
 						</div>
 						<div className='col-md-4 col-md-offset-4 text-center'>
-							<Settings delay={this.state.delay} numItems={this.state.numItemsToSort}/>
+							<Settings delay={this.state.delay} 
+												changeDelay={this.changeDelay.bind(this)} 
+												changeNum={this.changeNum.bind(this)} 
+												numItems={this.state.numItemsToSort} 
+												sorting={this.state.sorting}/>
 						</div>
 					</div>
 				</div>

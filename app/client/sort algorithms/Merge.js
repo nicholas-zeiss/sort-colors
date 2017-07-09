@@ -3,6 +3,9 @@ Here we have the class for implementing merge sort. This is a bottom up implemen
 to render tick by tick
 **/
 
+//TODO make it actually work
+
+
 import getIndices from '../utils/getIndices';
 
 class Merge {
