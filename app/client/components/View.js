@@ -25,14 +25,14 @@ class View extends React.Component {
 	componentDidUpdate() {
 		let ctx = this.state.container;
 
-		ctx.fillStyle = 'white';																		//background
+		ctx.fillStyle = '#1c1e22';																		//background
 		ctx.fillRect(0, 0, this.props.width, this.props.height);
 
 		let width = this.props.width / this.props.data.length;
 
 		for (let i = 0; i < this.props.data.length; i++) {
-			ctx.fillStyle = Math.abs(i - this.props.active) == 0 ? 'red' : 'black';			//red if the current piece of data is being sorted by the algorithm,
-																																									//or it is next to that piece
+			ctx.fillStyle = i == this.props.active ? 'red' :			//red if the current piece of data is being sorted by the algorithm
+											i >= this.props.sortedSection[0] && i <= this.props.sortedSection[1] ? 'green' : 'white';			//green if in final position, black otherwise
 
 			ctx.fillRect(i * width, (1 - this.props.data[i] / this.props.data.length) * this.props.height, width - 2, this.props.height);
 		}

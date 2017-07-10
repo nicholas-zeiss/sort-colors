@@ -15,7 +15,7 @@ function siftHeap(arr, root, end) {
 	let swap = root;
 	
 	if (arr[root] < arr[leftChild(root)]) {
-		swap = leftChild(root)
+		swap = leftChild(root);
 	}
 
 	if (rightChild(root) <= end && arr[swap] < arr[rightChild(root)]) {
@@ -34,31 +34,6 @@ function siftHeap(arr, root, end) {
 /**
 Helpers for the above function
 **/
-
-//given index i in heap return index of the parent node
-function parent(i) {
-	return Math.floor((i - 1) / 2);
-}
-
-//returns index of the left child of the node at i
-function leftChild(i) {
-	return 2*i + 1;
-}
-
-//returns index of the right child of the node at i
-function rightChild(i) {
-	return 2*i + 2;
-}
-
-
-/**
-Helpers for the above two functions
-**/
-
-//given index i in heap return index of the parent node
-function parent(i) {
-	return Math.floor((i - 1) / 2);
-}
 
 //returns index of the left child of the node at i
 function leftChild(i) {

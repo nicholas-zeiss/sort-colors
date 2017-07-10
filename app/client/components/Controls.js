@@ -18,7 +18,7 @@ const Controls = (props) => {
 			<div className='btn-group' id='control-toggle'>
 				<button type='button' className='btn btn-success' id='start-btn' onClick={props.toggleSorting}>
 					{props.sorting ? <span className='glyphicon glyphicon-pause'></span> : 
-					 props.sorted ? <span className='glyphicon glyphicon-refresh'></span> : <span className='glyphicon glyphicon-play'></span>}
+						props.sorted ? <span className='glyphicon glyphicon-refresh'></span> : <span className='glyphicon glyphicon-play'></span>}
 				</button>
 				<button type='button' className='btn btn-danger' id='reset-btn' onClick={props.reset}><span className='glyphicon glyphicon-refresh'></span></button>
 			</div>

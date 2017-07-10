@@ -14,7 +14,7 @@ class Bubble {
 	//moves bubble sort forward by one comparison or swap
 	tick() {
 		if (this.sorted) {
-			return [this.data, true, -5];
+			return [this.data, true, -5, [0, this.data.length]];
 		}
 
 		if (this.data[this.index] > this.data[this.index + 1]) {
@@ -31,7 +31,9 @@ class Bubble {
 			this.index++;
 		}
 
-		return [this.data, this.sorted, this.index];
+		let sortedSection = this.sorted ? [0, this.data.length - 1] :
+												this.last == this.data.length - 1 ? [-1, -1] : [this.last + 1, this.data.length - 1];
+		return [this.data, this.sorted, this.index, sortedSection];
 	}
 }
 

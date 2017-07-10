@@ -10,6 +10,7 @@ class Sorter {
 		this.sort = new sort(this.data);																						//sort is the actual sorting object
 		this.active = -5;																														//index of the datum currently being manipulated by the sort
 		this.sorted = false;
+		this.sortedSection = [-1, -1];
 	}
 
 	reset(newSort, numItems) {
@@ -17,6 +18,7 @@ class Sorter {
 		this.data = shuffle(new Array(numItems).fill(1).map((n,i) => i + 1));
 		this.active = -5;
 		this.sorted = false;
+		this.sortedSection = [-1, -1];
 
 		if (newSort) {
 			this.sort = new newSort(this.data);
@@ -24,7 +26,7 @@ class Sorter {
 	}
 
 	tick() {																															//progresses the sort forward by one comparison or swap
-		[this.data, this.sorted, this.active] = this.sort.tick();
+		[this.data, this.sorted, this.active, this.sortedSection] = this.sort.tick();
 		if (this.sorted) {
 			this.active = -5;
 		}

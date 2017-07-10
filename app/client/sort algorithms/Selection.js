@@ -13,7 +13,7 @@ class Selection {
 
 	tick() {
 		if (this.sorted) {
-			return [this.data, this.sorted, this.i];
+			return [this.data, this.sorted, this.i, [0, this.data.length]];
 		} else if (this.i < this.data.length) {
 			this.min = this.min[1] < this.data[this.i] ? this.min : [this.i, this.data[this.i]];
 			this.i++;
@@ -27,7 +27,7 @@ class Selection {
 			this.i++;
 		}
 
-		return [this.data, this.sorted, this.i];
+		return [this.data, this.sorted, this.i, [0, this.unsorted - 1]];
 	}
 }
 

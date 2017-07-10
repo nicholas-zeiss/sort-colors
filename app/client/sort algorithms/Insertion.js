@@ -12,13 +12,12 @@ class Insertion {
 	}
 
 	tick() {
-		console.log(this.i, this.unsorted)
 		if (this.sorted) {
-			return [this.data, this.sorted, this.i];
+			return [this.data, this.sorted, this.i, [0, this.data.length - 1]];
 		} else if (this.i > 0 && this.data[this.i] < this.data[this.i - 1]) {
+			[this.data[this.i], this.data[this.i - 1]] = [this.data[this.i - 1], this.data[this.i]];
 			this.unsorted = this.unsorted < this.i ? this.i + 1 : this.unsorted;
 			this.unsorted = this.data.length == this.unsorted ? this.data.length - 1 : this.unsorted;
-			[this.data[this.i], this.data[this.i - 1]] = [this.data[this.i - 1], this.data[this.i]];
 			this.i--;
 		} else if (this.i == this.data.length - 1) {
 			this.sorted = true;
@@ -28,8 +27,8 @@ class Insertion {
 			this.i++;
 		}
 
-
-		return [this.data, this.sorted, this.i];
+		let sortedSection = this.data[this.unsorted] > this.data[this.unsorted - 1] ? [0, this.unsorted] : [0, this.unsorted - 1];
+		return [this.data, this.sorted, this.i, sortedSection];
 	}
 }
 

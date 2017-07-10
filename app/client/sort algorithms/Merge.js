@@ -1,9 +1,9 @@
 /**
-Here we have the class for implementing merge sort. This is a bottom up implementation as the normal recursive top down approach is more difficult
-to render tick by tick
+Here we have the class for implementing merge sort. As we have to proceed tick by tick this implimentation is quite different than the normal recursive top down approach.
+First, we generate an array of indices with getIndices. As we proceed through it it gives us the subsections we sort and merge in an order that is identical
+to the recursive top down approach.
 **/
 
-//TODO make it actually work
 
 
 import getIndices from '../utils/getIndices';
@@ -12,8 +12,13 @@ class Merge {
 	constructor(data) {
 		this.data = data;
 		this.sorted = false;
+		
 		this.i = 0;							//data index
-		this.j = this.data.length;
+		this.endSorted = 0;			//end of subsection that has been processed by merge sort (though not yet in its final position)
+		
+		this.indices = getIndices(this.data.length);			//gives us subsections we need to merge in the same order as a conventional recursive quicksort
+		this.indIdx = 0;																	//indices index
+
 		this.left = [];
 		this.right = [];
 		this.merging = false;
@@ -21,55 +26,41 @@ class Merge {
 
 	tick() {
 		if (this.sorted) {
-			return [this.data, this.sorted, this.i]
-		} else if (this.merging) {
-			this.merge(this.i);
-		} else {
-			this.mergeSort(this.i, this.j);
-		}
-		
+			return [this.data, this.sorted, this.i, [0, this.data.length - 1]];
 
-		return [this.data, this.sorted, this.i];
-	}
-
-	mergeSort(i, j) {
-		if (i == j) {
-			return;
-		}
-		if (i + 1 == j) {
-			if (this.data[i] > this.data[j]) {
-				[this.data[i], this.data[j]] = [this.data[j], this.data[i]];
+		} else if (this.merging) {											//normal merging procedure
+			if (this.left.length && this.right.length) {
+				this.data[this.i] = this.left[0] < this.right[0] ? this.left.shift() : this.right.shift();
+			
+			} else if (this.left.length) {
+				this.data[this.i] = this.left.shift();
+			
+			} else if (this.right.length) {
+				this.data[this.i] = this.right.shift();
+			
+			} else {
+				this.merging = false;
 			}
-			return;
-		}
 
-		this.left = this.data.slice(i, i + Math.ceil((j - i) / 2));
-		this.right = this.data.slice(i + Math.ceil(j - i), j);
+			this.i += this.merging ? 1 : 0;
+			this.endSorted = Math.max(this. i, this.endSorted);
 
-		mergeSort(this.left);
-		mergeSort(this.right);
+		} else if (this.indIdx < this.indices.length) {				//here we prepare ourselves for a new merge
+			let indices = this.indices[this.indIdx++];
 
-		this.merge(i);
-	}
-
-	merge(i) {
-		this.i = i;
-		
-		if (this.left.length && this.right.length) {
+			if (indices[0] != 'single') {																		//if the current section is not a single piece of data we must merge
+				this.left = this.data.slice(indices[1][0], indices[1][1]);
+				this.right = this.data.slice(indices[2][0], indices[2][1]);
+				this.merging = true;
+			}
 			
-			this.data[this.i++] = this.left[0] < this.right[0] ? this.left.shift() : this.right.shift();
-		
-		} else if (this.left.length) {
-			
-			this.data[this.i++] = this.left.shift();
-		
-		} else if (this.right.length) {
-			
-			this.data[this.i++] = this.right.shift();
-
+			this.i = indices[1][0];
+			this.endSorted = Math.max(this. i, this.endSorted);
 		} else {
-			this.merging = false;
+			this.sorted = true;
 		}
+
+		return [this.data, this.sorted, this.i, [0, this.endSorted]];
 	}
 }
 

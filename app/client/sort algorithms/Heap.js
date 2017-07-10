@@ -26,7 +26,7 @@ class Heap {
 		let active = -5;				//the index of the active piece of data to be highlighted when the data is rendered
 
 		if (this.sorted) {
-			return [this.data, this.sorted, 0];
+			return [this.data, this.sorted, 0, [0, this.data.length]];
 
 		} else if (this.sifting) {										//heap is being sifted
 			if (this.inSwap) {
@@ -54,7 +54,9 @@ class Heap {
 			this.sorted = true;
 		}
 
-		return [this.data, this.sorted, active];
+		let sortedSection = this.sorted ? [0, this.data.length] : [this.heapEnd + 1, this.data.length - 1];
+
+		return [this.data, this.sorted, active, sortedSection];
 	}
 
 }

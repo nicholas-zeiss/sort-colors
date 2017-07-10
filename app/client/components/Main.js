@@ -86,6 +86,7 @@ class Main extends React.Component {
 					this.state.sorter.tick();
 					
 					if (this.state.sorter.sorted) {
+						this.state.sorter.tick();
 						this.pauseSorting();
 					}
 					
@@ -141,7 +142,6 @@ class Main extends React.Component {
 
 
 	changeDelay(n) {
-		console.log('changing delay by', n)
 		if (this.state.delay + n <= 500 && this.state.delay + n >= 5) {
 			this.setState({
 				delay: this.state.delay + n
@@ -150,7 +150,7 @@ class Main extends React.Component {
 	}
 
 	changeNum(n) {
-		if (this.state.numItemsToSort + n <= 100 && this.state.numItemsToSort + n >= 10) {
+		if (this.state.numItemsToSort + n <= 200 && this.state.numItemsToSort + n >= 10) {
 			this.state.sorter.reset(ALGORITHMS[this.state.algorithm], this.state.numItemsToSort + n);
 
 			this.setState({
@@ -173,7 +173,8 @@ class Main extends React.Component {
 						<View width={this.state.canvasWidth} 
 									height={this.state.canvasHeight} 
 									data={this.state.sorter.data} 
-									active={this.state.sorter.active}/>
+									active={this.state.sorter.active}
+									sortedSection={this.state.sorter.sortedSection}/>
 					</div>
 					<div className='row'>
 						<div className='col-md-4 text-center'>
@@ -185,7 +186,7 @@ class Main extends React.Component {
 												reset={this.reset.bind(this)} 
 												toggleSorting={this.toggleSorting.bind(this)}/>
 						</div>
-						<div className='col-md-4 col-md-offset-4 text-center'>
+						<div className='col-md-6 col-md-offset-2 text-center'>
 							<Settings delay={this.state.delay} 
 												changeDelay={this.changeDelay.bind(this)} 
 												changeNum={this.changeNum.bind(this)} 
