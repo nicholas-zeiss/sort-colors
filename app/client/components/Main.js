@@ -13,18 +13,20 @@ import Gnome from '../sort algorithms/Gnome';
 import Heap from '../sort algorithms/Heap';
 import Insertion from '../sort algorithms/Insertion';
 import Merge from '../sort algorithms/Merge';
+import Quick from '../sort algorithms/Quick';
 import Selection from '../sort algorithms/Selection';
 
 import Sorter from '../utils/Sorter';
 
 
 const ALGORITHMS = {
-	Bubble: Bubble,
-	Gnome: Gnome,
-	Heap: Heap,
-	Insertion: Insertion,
-	Merge: Merge,
-	Selection: Selection
+	'Bubble Sort': Bubble,
+	'Gnome Sort': Gnome,
+	'Heapsort': Heap,
+	'Insertion Sort': Insertion,
+	'Merge Sort': Merge,
+	'Quicksort': Quick,
+	'Selection Sort': Selection
 };
 
 const KEYS = Object.keys(ALGORITHMS).sort();
@@ -38,7 +40,7 @@ class Main extends React.Component {
 			canvasWidth: 500,
 			canvasDiv: null,							//holds a reference to the div where View is rendered so we can track it's dimensions and pass it down to View
 			sorting: false,
-			algorithm: 'Bubble',							
+			algorithm: 'Bubble Sort',							
 			sorter: new Sorter(Bubble, 100),
 			unsorted: true,	
 			numItemsToSort: 100,
@@ -101,6 +103,11 @@ class Main extends React.Component {
 		} else {
 			this.pauseSorting();
 		}
+	}
+
+	stepForward() {
+		this.state.sorter.tick();
+		this.forceUpdate();
 	}
 
 	/**
@@ -167,7 +174,7 @@ class Main extends React.Component {
 				</div>
 				<div className='container well'>
 					<div className='row'>
-						<h3 id='algorithm'>{`Now using ${this.state.algorithm} sort`}</h3>
+						<h3 id='algorithm'>{`Now using ${this.state.algorithm}`}</h3>
 					</div>
 					<div className='row' ref={this.updateCanvasDimensions}>
 						<View width={this.state.canvasWidth} 
@@ -184,6 +191,7 @@ class Main extends React.Component {
 												sorting={this.state.sorting} 
 												sorted={this.state.sorter.sorted}
 												reset={this.reset.bind(this)} 
+												stepForward={this.stepForward.bind(this)}
 												toggleSorting={this.toggleSorting.bind(this)}/>
 						</div>
 						<div className='col-md-6 col-md-offset-2 text-center'>

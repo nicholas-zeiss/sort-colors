@@ -1,12 +1,8 @@
-#start-btn:focus {
+#control-dropup > button:focus {
 	outline: 0;
 }
 
-#reset-btn:focus {
-	outline: 0;
-}
-
-#control-dropup:focus {
+#control-toggle > button:focus {
 	outline: 0;
 }
 
@@ -38,9 +34,6 @@
 
 #settings-items > button:focus {
 	outline: 0;
-}
-#visualizer {
-	/*border: 2px solid white;*/
 }
 
 #control-dropup {

@@ -1,6 +1,5 @@
 /**
-Here we have the class responsible for implementing gnome sort. Almost identical to insertion sort but once an element is swapped into place
-it proceeds through all the sorted elements greater to reach the unsorted section, whereas insertion sort simply jumps to the unsorted section.
+Here we have the class responsible for implementing heapsort.
 **/
 
 import siftHeap from '../utils/siftHeap.js';

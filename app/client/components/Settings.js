@@ -11,7 +11,7 @@ class Settings extends React.Component {
 		this.state = {
 			intervals: [],
 			mouseStillDown: false
-		}
+		};
 	}
 
 	repeat(action) {
@@ -29,7 +29,7 @@ class Settings extends React.Component {
 
 		this.setState({
 			mouseStillDown: true
-		})
+		});
 	}
 
 	stopRepeat() {
@@ -37,7 +37,7 @@ class Settings extends React.Component {
 
 		this.setState({
 			mouseStillDown: false
-		})
+		});
 	}
 
 	render() {
