@@ -40,7 +40,7 @@ class View extends React.Component {
 				}
 			}
 
-			if (this.props.validHeap && this.props.validHeap.has(i) && ctx.fillStyle != '#ff0000') {
+			if (this.props.validHeap && this.props.validHeap.has(i) && ctx.fillStyle != '#ff0000') {	
 				ctx.fillStyle = 'cyan';
 			}
 

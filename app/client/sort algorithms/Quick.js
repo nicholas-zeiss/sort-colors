@@ -6,6 +6,7 @@ class Quick {
 	constructor(data) {
 		this.data = data;
 		this.sorted = false;
+		this.active = -1;
 
 		this.currSection = [0, data.length - 1];	//section being sorted
 		this.sections = [];											//as we can't use recursion we hold the sections to be sorted in order here
@@ -19,50 +20,67 @@ class Quick {
 	}
 
 	tick() {
-		let active = -1;
-
 		if (this.sorted) {
 			return [this.data, true, [[0, this.data.length, 'green']]];
 		
 		} else if (this.swapping) {
 			[this.data[this.i], this.data[this.swap]] = [this.data[this.swap], this.data[this.i]];
-			active = this.swap;
+			this.active = this.swap;
 			this.swapping = false;
 		
 		} else if (this.partitioning) {
-			if (this.j <= this.currSection[1]) {																	//if we aren't done with the section to partition
-				if (this.data[this.j] <= this.data[this.currSection[1]]) {					//if current datum is less than pivot
-					this.i++;
-					
-					if (this.i != this.j) {							//swap it into place if needed
-						this.swap = this.j;
-						this.swapping = true;
-					}
-				}
-				
-				active = this.swapping ? this.i : this.j;
-				this.j++;
-			} else {																	//if we are done with the section to partition
-				this.partitioning = false;
-				
-				this.sections.unshift([this.currSection[0], this.i - 1], [this.i + 1, this.currSection[1]]);				//this.i holds pivot
-				
-				active = this.currSection[1];
-			}
-		} else if (this.sections.length) {							//if there are more sections to partition we setup tick to begin a partition
-			this.currSection = this.sections.shift();
+			this.partition();
 			
-			if (this.currSection[0] < this.currSection[1]) {			//if currSection is valid, otherwise we just move to next one
-				this.partitioning = true;
-				this.i = this.currSection[0] - 1;
-				this.j = this.currSection[0];
-				active = j;
-			}
+		} else if (this.sections.length) {							//if there are more sections to partition we setup tick to begin a partition
+			this.setUpPartition();
+
 		} else {																			//if we aren't swapping, partitioning, and no sections to partition remain we are done
 			this.sorted = true;
 		}
 
-		return [this.data, this.sorted, [[active, active, 'red'], [this.currSection[1], this.currSection[1], 'plum'], [this.currSection[0], this.i, 'cyan'], [this.i, this.j - 1, 'yellow'], [this.j - 1, this.currSection[1], 'springgreen'], [0, this.data.length - 1, 'green']]];
+		return [this.data,
+		        this.sorted,
+		        [[this.active, this.active, 'red'],
+		         [this.currSection[1],this.currSection[1], 'plum'],
+		         [this.currSection[0], this.i, 'cyan'],
+		         [this.i, this.j - 1, 'yellow'],
+		         [this.j - 1, this.currSection[1], 'springgreen'],
+		         [0, this.data.length - 1, 'green']]
+		       ];
+	}
+
+
+	partition() {
+		if (this.j <= this.currSection[1]) {																	//if we aren't done with the section to partition
+			if (this.data[this.j] <= this.data[this.currSection[1]]) {					//if current datum is less than pivot
+				this.i++;
+				
+				if (this.i != this.j) {							//swap it into place if needed
+					this.swap = this.j;
+					this.swapping = true;
+				}
+			}
+			
+			this.active = this.swapping ? this.i : this.j;
+			this.j++;
+		
+		} else {																	//if we are done with the section to partition
+			this.partitioning = false;			
+			this.sections.unshift([this.currSection[0], this.i - 1], [this.i + 1, this.currSection[1]]);				//this.i holds pivot
+			this.active = this.currSection[1];
+		}
+	}
+
+
+	setUpPartition() {
+		this.currSection = this.sections.shift();
+			
+		if (this.currSection[0] < this.currSection[1]) {			//if currSection is valid, otherwise we just move to next one
+			this.partitioning = true;
+			this.i = this.currSection[0] - 1;
+			this.j = this.currSection[0];
+			this.active = this.j;
+		}
 	}
 }
 

@@ -1,6 +1,6 @@
 /**
 Everytime heap sort swaps the max element of the heap (to it's final position) with the last item in the heap, 
-we rebuild the heap using this function. We also use it to build the initial heap. It rebuilds the heap with root from the bottom up.
+we rebuild the heap using this function. We also use it to build the initial heap. It rebuilds the heap starting at root from the bottom up.
 end is the end index of the heap in the array, inclusive. Each call either finds that the root is in the appropriate place in the heap,
 or if not, the root must be swapped with its greatest child and siftHeap should continue onto that child.
 
@@ -10,8 +10,6 @@ so that those steps can be taken and displayed graphically by the Heap instance 
 It returns an array with two item: 1. the root index (if there was no swap) or the index of where the root was swapped
 																	 2. an array of arrays which becomes toBeActived in the Heap instance and is documented there
 **/
-
-
 function siftHeap(arr, root, end) {
 	if (leftChild(root) > end) {
 		return [root, []];
@@ -27,12 +25,12 @@ function siftHeap(arr, root, end) {
 		swap = right;
 	}
 
-	return [swap, [[left]].concat(right ? [[right]] : [], swap != root ? [[root, swap]] : [])];
+	return [swap, swap != root ? [root, swap] : null];//[[left]].concat(right ? [[right]] : [], swap != root ? [[root, swap]] : [])];
 }
 
 
 /**
-Helpers for the above function
+Utility heap functions
 **/
 
 //returns index of the left child of the node at i

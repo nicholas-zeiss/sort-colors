@@ -42,9 +42,9 @@ class Main extends React.Component {
 			canvasDiv: null,							//holds a reference to the div where View is rendered so we can track it's dimensions and pass it down to View
 			sorting: false,
 			algorithm: 'Bubble Sort',							
-			sorter: new Sorter(Bubble, 10),
+			sorter: new Sorter(Bubble, 100),
 			unsorted: true,	
-			numItemsToSort: 10,
+			numItemsToSort: 100,
 			intervalID: undefined,
 			delay: 20
 		};

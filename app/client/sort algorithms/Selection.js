@@ -20,9 +20,10 @@ class Selection {
 			return [this.data, true, [[0, this.data.length, 'green']]];
 
 		} else if (this.inSwap) {
-			this.inSwap = false;
-			active = this.min[0];
+			this.inSwap = false, active = this.min[0];
+			
 			[this.data[this.unsorted], this.data[this.min[0]]] = [this.data[this.min[0]], this.data[this.unsorted]];
+			
 			this.i = ++this.unsorted;
 			this.min = [this.i, this.data[this.i]];
 
@@ -35,15 +36,19 @@ class Selection {
 			this.min[0] = -1;			//don't want it to be highlighted when rendered
 
 		} else if (this.i == this.data.length) {
-			this.inSwap = true;
-			active = this.unsorted;
-			this.firstLoop = false;
+			this.inSwap = true, active = this.unsorted, this.firstLoop = false;
 
 		} else {
 			active = this.i++;
 		}
 
-		return [this.data, this.sorted, [[active, active, 'red'], [this.min[0], this.min[0], 'orange'], [this.unsorted, this.firstLoop ? this.i : this.data.length, 'cyan'], [0, this.unsorted - 1, 'green']]];
+		return [this.data,
+		        this.sorted,
+		        [[active, active, 'red'],
+		         [this.min[0], this.min[0], 'orange'],
+		         [this.unsorted, this.firstLoop ? this.i : this.data.length, 'cyan'],
+		         [0, this.unsorted - 1, 'green']]
+		       ];
 	}
 }
 

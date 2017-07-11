@@ -35,7 +35,12 @@ class Bubble {
 		}
 
 
-		return [this.data, this.sorted, [[this.index, this.index, 'red'], [0, this.firstLoop ? this.index : this.last, 'cyan'], [this.last + 1, this.data.length - 1, 'green']]];
+		return [this.data,
+					  this.sorted,
+					  [[this.index, this.index, 'red'],
+					   [0, this.firstLoop ? this.index : this.last, 'cyan'],
+					   [this.last + 1, this.data.length - 1, 'green']]
+					 ];
 	}
 }
 
