@@ -16,7 +16,6 @@ the data array that should be merged. These subsections are produced in the orde
 												  [ 'merge', [ 0, 2 ], [ 2, 3 ] ],
 												  [ 'merge', [ 3, 4 ], [ 4, 5 ] ],
 												  [ 'merge', [ 0, 3 ], [ 3, 5 ] ] ]
-
 **/
 
 function getIndices(length) {

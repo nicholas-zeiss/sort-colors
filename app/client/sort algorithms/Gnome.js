@@ -14,7 +14,7 @@ class Gnome {
 
 	tick() {
 		if (this.sorted) {
-			return [this.data, this.sorted, this.i, [0, this.data.length]];
+			return [this.data, true, [[0, this.data.length, 'green']]];
 		} else if (this.i > 0 && this.data[this.i] < this.data[this.i - 1]) {
 			[this.data[this.i], this.data[this.i - 1]] = [this.data[this.i - 1], this.data[this.i]];
 			this.i--;
@@ -26,7 +26,7 @@ class Gnome {
 			this.endSorted = Math.max(this.i, this.endSorted);
 		}
 
-		return [this.data, this.sorted, this.i, [0, this.endSorted]];
+		return [this.data, this.sorted, [[this.i, this.i, 'red'], [0, this.endSorted, 'green']]];
 	}
 }
 

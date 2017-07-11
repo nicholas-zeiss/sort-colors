@@ -17,6 +17,7 @@ import Quick from '../sort algorithms/Quick';
 import Selection from '../sort algorithms/Selection';
 
 import Sorter from '../utils/Sorter';
+import ALG_INFO from '../utils/algInfo';
 
 
 const ALGORITHMS = {
@@ -26,7 +27,7 @@ const ALGORITHMS = {
 	'Insertion Sort': Insertion,
 	'Merge Sort': Merge,
 	'Quicksort': Quick,
-	'Selection Sort': Selection
+	'Selection Sort': Selection,
 };
 
 const KEYS = Object.keys(ALGORITHMS).sort();
@@ -41,11 +42,11 @@ class Main extends React.Component {
 			canvasDiv: null,							//holds a reference to the div where View is rendered so we can track it's dimensions and pass it down to View
 			sorting: false,
 			algorithm: 'Bubble Sort',							
-			sorter: new Sorter(Bubble, 100),
+			sorter: new Sorter(Bubble, 10),
 			unsorted: true,	
-			numItemsToSort: 100,
+			numItemsToSort: 10,
 			intervalID: undefined,
-			delay: 30
+			delay: 20
 		};
 	}
 
@@ -81,25 +82,21 @@ class Main extends React.Component {
 	**/
 	toggleSorting() {
 		if (!this.state.sorting) {
-			if (this.state.sorter.sorted) {
-				this.reset(this.toggleSorting);
-			} else {
-				let id = setInterval(() => {
-					this.state.sorter.tick();
-					
-					if (this.state.sorter.sorted) {
-						this.state.sorter.tick();
-						this.pauseSorting();
-					}
-					
-					this.forceUpdate(); 
-				}, this.state.delay);
+			let id = setInterval(() => {
+				this.state.sorter.tick();
 
-				this.setState({
-					sorting: true,
-					intervalID: id
-				});
-		  }
+				if (this.state.sorter.sorted) {
+					this.pauseSorting();
+				}
+				
+				this.forceUpdate(); 
+			}, this.state.delay);
+
+			this.setState({
+				sorting: true,
+				intervalID: id,
+				unsorted: false
+			});  
 		} else {
 			this.pauseSorting();
 		}
@@ -107,7 +104,10 @@ class Main extends React.Component {
 
 	stepForward() {
 		this.state.sorter.tick();
-		this.forceUpdate();
+		
+		this.setState({
+			unsorted: false
+		});
 	}
 
 	/**
@@ -131,7 +131,8 @@ class Main extends React.Component {
 
 			this.setState({
 				sorting: false,
-				intervalID: undefined
+				intervalID: undefined,
+				unsorted: true
 			});
 		
 	}
@@ -141,6 +142,7 @@ class Main extends React.Component {
 	**/
 	chooseAlgorithm(alg) {
 		this.state.sorter.reset(ALGORITHMS[alg], this.state.numItemsToSort);
+		
 		this.setState({
 			algorithm: alg,
 		  unsorted: true
@@ -174,14 +176,15 @@ class Main extends React.Component {
 				</div>
 				<div className='container well'>
 					<div className='row'>
-						<h3 id='algorithm'>{`Now using ${this.state.algorithm}`}</h3>
+						<div className='col-md-6'><h3 id='algorithm'>{`Now using ${this.state.algorithm}`}</h3></div>
+						{this.state.unsorted ? null : <div className='col-md-6'><h4 className='text-left'>{ALG_INFO[this.state.algorithm]}</h4></div>}
 					</div>
 					<div className='row' ref={this.updateCanvasDimensions}>
 						<View width={this.state.canvasWidth} 
 									height={this.state.canvasHeight} 
-									data={this.state.sorter.data} 
-									active={this.state.sorter.active}
-									sortedSection={this.state.sorter.sortedSection}/>
+									data={this.state.sorter.data}
+									colors={this.state.sorter.colors}
+									validHeap={this.state.algorithm == 'Heapsort' && !this.state.sorter.sorted ? this.state.sorter.sort.validHeap : null}/> 
 					</div>
 					<div className='row'>
 						<div className='col-md-4 text-center'>

@@ -9,12 +9,13 @@ class Bubble {
 		this.index = 0;
 		this.swap = false;
 		this.sorted = false;
+		this.firstLoop = true;
 	}
 
 	//moves bubble sort forward by one comparison or swap
 	tick() {
 		if (this.sorted) {
-			return [this.data, true, -5, [0, this.data.length]];
+			return [this.data, true, [[0, this.data.length, 'green']]];
 		}
 
 		if (this.data[this.index] > this.data[this.index + 1]) {
@@ -27,13 +28,14 @@ class Bubble {
 			this.sorted = this.last == 1 ? true : !this.swap;
 			this.swap = false;
 			this.last--;
+			this.firstLoop = false;
+		
 		} else {
 			this.index++;
 		}
 
-		let sortedSection = this.sorted ? [0, this.data.length - 1] :
-												this.last == this.data.length - 1 ? [-1, -1] : [this.last + 1, this.data.length - 1];
-		return [this.data, this.sorted, this.index, sortedSection];
+
+		return [this.data, this.sorted, [[this.index, this.index, 'red'], [0, this.firstLoop ? this.index : this.last, 'cyan'], [this.last + 1, this.data.length - 1, 'green']]];
 	}
 }
 

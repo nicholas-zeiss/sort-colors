@@ -8,27 +8,22 @@ class Sorter {
 	constructor(sort, numItems) {
 		this.data = shuffle(new Array(numItems).fill(1).map((n,i) => i + 1));				//randomized array
 		this.sort = new sort(this.data);																						//sort is the actual sorting object
-		this.active = -5;																														//index of the datum currently being manipulated by the sort
 		this.sorted = false;
-		this.sortedSection = [-1, -1];
+		this.colors = [];
 	}
 
 	reset(newSort, numItems) {
-		numItems = numItems || this.data.length;
 		this.data = shuffle(new Array(numItems).fill(1).map((n,i) => i + 1));
-		this.active = -5;
 		this.sorted = false;
-		this.sortedSection = [-1, -1];
-
-		if (newSort) {
-			this.sort = new newSort(this.data);
-		}
+		this.colors = [];
+		this.sort = new newSort(this.data);
 	}
 
 	tick() {																															//progresses the sort forward by one comparison or swap
-		[this.data, this.sorted, this.active, this.sortedSection] = this.sort.tick();
+		[this.data, this.sorted, this.colors] = this.sort.tick();
+		
 		if (this.sorted) {
-			this.active = -5;
+			this.colors = [[0, this.data.length - 1, 'green']];
 		}
 	}
 }

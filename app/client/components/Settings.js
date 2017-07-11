@@ -61,7 +61,7 @@ class Settings extends React.Component {
 					</button>
 				</div>
 				<div className='btn-group' id='settings-items'>
-					<button onMouseDown={this.repeat.bind(this, this.props.changeNum.bind(null, -1))}
+					<button onMouseDown={this.repeat.bind(this, this.props.changeNum.bind(null, -5))}
 									onMouseUp={this.stopRepeat.bind(this)}
 									type='button'
 									className='btn btn-default'
@@ -69,7 +69,7 @@ class Settings extends React.Component {
 						<span className='glyphicon glyphicon-minus'></span>
 					</button>
 					<button className='btn btn-primary'>{'Data size: ' + this.props.numItems}</button>
-					<button onMouseDown={this.repeat.bind(this, this.props.changeNum.bind(null, 1))}
+					<button onMouseDown={this.repeat.bind(this, this.props.changeNum.bind(null, 5))}
 									onMouseUp={this.stopRepeat.bind(this)}
 									type='button'
 									className='btn btn-default'

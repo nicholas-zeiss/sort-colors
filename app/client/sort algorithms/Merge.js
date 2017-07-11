@@ -1,6 +1,6 @@
 /**
-Here we have the class for implementing merge sort. As we have to proceed tick by tick this implimentation is quite different than the normal recursive top down approach.
-First, we generate an array of indices with getIndices. As we proceed through it it gives us the subsections we sort and merge in an order that is identical
+Here we have the class for implementing merge sort. As we have to proceed tick by tick this implementation is quite different than the normal recursive top down approach.
+First, we generate an array of indices with getIndices. As we proceed through it it gives us the subsections to sort and merge in an order that is identical
 to the recursive top down approach.
 **/
 
@@ -26,7 +26,7 @@ class Merge {
 
 	tick() {
 		if (this.sorted) {
-			return [this.data, this.sorted, this.i, [0, this.data.length - 1]];
+			return [this.data, true, [[0, this.data.length - 1, 'green']]];
 
 		} else if (this.merging) {											//normal merging procedure
 			if (this.left.length && this.right.length) {
@@ -35,15 +35,15 @@ class Merge {
 			} else if (this.left.length) {
 				this.data[this.i] = this.left.shift();
 			
-			} else if (this.right.length) {
-				this.data[this.i] = this.right.shift();
-			
 			} else {
-				this.merging = false;
-			}
+				this.data[this.i] = this.right.shift();
+			}			
+			
+			this.merging = this.left.length || this.right.length;
+			
 
 			this.i += this.merging ? 1 : 0;
-			this.endSorted = Math.max(this. i, this.endSorted);
+			this.endSorted = Math.max(this.i, this.endSorted);
 
 		} else if (this.indIdx < this.indices.length) {				//here we prepare ourselves for a new merge
 			let indices = this.indices[this.indIdx++];
@@ -55,12 +55,21 @@ class Merge {
 			}
 			
 			this.i = indices[1][0];
-			this.endSorted = Math.max(this. i, this.endSorted);
+			this.endSorted = Math.max(this.i, this.endSorted);
 		} else {
 			this.sorted = true;
 		}
 
-		return [this.data, this.sorted, this.i, [0, this.endSorted]];
+		let left = [-1, -1, 'cyan'], right = [-1, -1, 'yellow'];
+
+		if (this.indices[this.indIdx - 1].length > 2) {								//if our current merging section is not a single datum
+			[left[0], left[1]] = [this.indices[this.indIdx - 1][1][0], this.indices[this.indIdx - 1][1][1] - 1];
+			[right[0], right[1]] = [this.indices[this.indIdx - 1][2][0], this.indices[this.indIdx - 1][2][1] - 1];
+		} else {
+			left[0] = left[1] = this.indices[this.indIdx - 1][1][0];
+		}
+		
+		return [this.data, this.sorted, [[this.i, this.i, 'red'], left, right, [0, this.endSorted, 'green']]];
 	}
 }
 
