@@ -9,6 +9,7 @@ import Settings from './Settings';
 import View from './View';
 
 import Bubble from '../sort algorithms/Bubble';
+import Cocktail from '../sort algorithms/Cocktail';
 import Gnome from '../sort algorithms/Gnome';
 import Heap from '../sort algorithms/Heap';
 import Insertion from '../sort algorithms/Insertion';
@@ -25,6 +26,7 @@ import ALG_INFO from '../utils/algInfo';
 
 const ALGORITHMS = {
 	'Bubble Sort': Bubble,
+	'Cocktail Shaker Sort': Cocktail,
 	'Gnome Sort': Gnome,
 	'Heapsort': Heap,
 	'Insertion Sort': Insertion,
