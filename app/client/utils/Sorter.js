@@ -2,6 +2,8 @@
 This class serves as middleware between the sorting algorithm and the app rendering it
 **/
 
+import COLORS from './colors';
+
 
 class Sorter {
 	constructor(sort, numItems) {
@@ -22,7 +24,7 @@ class Sorter {
 		[this.data, this.sorted, this.colors] = this.sort.tick();
 		
 		if (this.sorted) {
-			this.colors = [[0, this.data.length - 1, 'green']];
+			this.colors = [[0, this.data.length - 1, COLORS.green]];
 		}
 	}
 }

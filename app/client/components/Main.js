@@ -62,7 +62,7 @@ class Main extends React.Component {
 	componentDidMount() {
 		window.onresize = () => { 
 			this.setState({
-				canvasHeight: .5 * (this.state.canvasDiv.offsetWidth - 100),
+				canvasHeight: .4 * (this.state.canvasDiv.offsetWidth - 100),
 				canvasWidth: this.state.canvasDiv.offsetWidth - 100
 			});
 		};
@@ -76,7 +76,7 @@ class Main extends React.Component {
 	updateCanvasDimensions = (row) => {					
 		if (row) {
 			this.setState({
-				canvasHeight: .5 * (row.offsetWidth - 100), 
+				canvasHeight: .4 * (row.offsetWidth - 100), 
 				canvasWidth: row.offsetWidth - 100,
 				canvasDiv: row
 			});
@@ -176,14 +176,14 @@ class Main extends React.Component {
 
 	render() {
 		return (
-			<div className='container'>
+			<div>
 				<div className='page-header'>
 					<h1 className='text-center' id='header'>Visual Sorter</h1>
 				</div>
-				<div className='container well'>
+				<div className='container-fluid well' id='sort-container'>
 					<div className='row'>
-						<div className='col-md-6'><h3 id='algorithm'>{`Now using ${this.state.algorithm}`}</h3></div>
-						{this.state.unsorted ? null : <div className='col-md-6'><h4 className='text-left'>{ALG_INFO[this.state.algorithm]}</h4></div>}
+						<h3 id='algorithm'>{`Using ${this.state.algorithm}`}</h3>
+						{this.state.unsorted ? null : <h4 className='pull-right' id='color-key'>{ALG_INFO[this.state.algorithm]}</h4>}
 					</div>
 					<div className='row' ref={this.updateCanvasDimensions}>
 						<View width={this.state.canvasWidth} 
@@ -193,7 +193,7 @@ class Main extends React.Component {
 									validHeap={this.state.algorithm == 'Heapsort' && !this.state.sorter.sorted ? this.state.sorter.sort.validHeap : null}/> 
 					</div>
 					<div className='row'>
-						<div className='col-md-4 text-center'>
+						<div className='col-md-6 text-center'>
 							<Controls algorithms={KEYS}
 												currAlg={this.state.algorithm}
 												chooseAlgorithm={this.chooseAlgorithm.bind(this)}
@@ -203,7 +203,7 @@ class Main extends React.Component {
 												stepForward={this.stepForward.bind(this)}
 												toggleSorting={this.toggleSorting.bind(this)}/>
 						</div>
-						<div className='col-md-6 col-md-offset-2 text-center'>
+						<div className='col-md-6 text-center'>
 							<Settings delay={this.state.delay} 
 												changeDelay={this.changeDelay.bind(this)} 
 												changeNum={this.changeNum.bind(this)} 

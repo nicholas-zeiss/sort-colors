@@ -5,6 +5,9 @@ Here we have the class responsible for implementing introsort, a hybrid between 
 import Heap from './Heap';
 import Quick from './Quick';
 
+import COLORS from '../utils/colors';
+
+
 class Intro {
 	constructor(data) {
 		this.data = data;
@@ -19,15 +22,13 @@ class Intro {
 		this.heap = null;
 
 		this.pivot = -1;
-
-		console.log('maxdepth', this.maxDepth)
 	}
 
 	tick() {
 		let colors = [[]]; 
 		
 		if (this.sorted) {
-			return [this.data, true, [[0, this.data.length, 'green']]];
+			return [this.data, true, [[0, this.data.length, COLORS.green]]];
 		
 		} else if (this.quick) {
 			if (!this.quick.partitioning || !this.quick.currSection) {
@@ -62,7 +63,6 @@ class Intro {
 
 		} else if (this.currSection) {
 		  if (this.currSection[2] == this.maxDepth) {
-		  	console.log('using heap');
 				this.heap = new Heap(this.data.slice(this.currSection[0], this.currSection[1] + 1));
 			
 			} else {
@@ -82,7 +82,7 @@ class Intro {
 
 		return [this.data,
 						this.sorted,
-						colors
+						colors.concat([[0, this.data.length - 1, COLORS.green]])
 					 ];
 	}
 

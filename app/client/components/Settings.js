@@ -42,7 +42,7 @@ class Settings extends React.Component {
 
 	render() {
 		return (
-			<div id='settings' className='btn-toolbar'>
+			<div id='settings' className='btn-toolbar pull-right'>
 				<div className='btn-group' id='settings-delay'>
 					<button onMouseDown={this.repeat.bind(this, this.props.changeDelay.bind(null, -5))}
 									onMouseUp={this.stopRepeat.bind(this)} type='button'
@@ -51,7 +51,7 @@ class Settings extends React.Component {
 									disabled={this.props.sorting}>
 						<span className='glyphicon glyphicon-minus'></span>
 					</button>
-					<button className='btn btn-primary'>{'Delay (ms): ' + this.props.delay}</button>
+					<button className='btn btn-primary' disabled={this.props.sorting}>{'Delay (ms): ' + this.props.delay}</button>
 					<button onMouseDown={this.repeat.bind(this, this.props.changeDelay.bind(null, 5))}
 									onMouseUp={this.stopRepeat.bind(this)}
 									type='button'
@@ -68,7 +68,7 @@ class Settings extends React.Component {
 									disabled={this.props.sorting}>
 						<span className='glyphicon glyphicon-minus'></span>
 					</button>
-					<button className='btn btn-primary'>{'Data size: ' + this.props.numItems}</button>
+					<button className='btn btn-primary' disabled={this.props.sorting}>{'Items: ' + this.props.numItems}</button>
 					<button onMouseDown={this.repeat.bind(this, this.props.changeNum.bind(null, 5))}
 									onMouseUp={this.stopRepeat.bind(this)}
 									type='button'

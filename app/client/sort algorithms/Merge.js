@@ -4,8 +4,7 @@ First, we generate an array of indices with getIndices. As we proceed through it
 to the recursive top down approach.
 **/
 
-
-
+import COLORS from '../utils/colors';
 import getIndices from '../utils/getIndices';
 
 class Merge {
@@ -26,7 +25,7 @@ class Merge {
 
 	tick() {
 		if (this.sorted) {
-			return [this.data, true, [[0, this.data.length - 1, 'green']]];
+			return [this.data, true, [[0, this.data.length - 1, COLORS.green]]];
 		
 		} else if (this.merging) {											//normal merging procedure
 			this.merge();
@@ -38,22 +37,19 @@ class Merge {
 			this.sorted = true;
 		}
 
-		let left = [-1, -1, 'cyan'], right = [-1, -1, 'yellow'], indices = this.indices[this.indIdx - 1];
+		let indices = this.indices[this.indIdx - 1], colors = [[this.i, this.i, COLORS.red]];
 
-		if (indices.length > 2) {																											//if our current merging section is not a single datum
-			[left[0], left[1]] = [indices[1][0], indices[1][1] - 1];
-			[right[0], right[1]] = [indices[2][0], indices[2][1] - 1];
-		
-		} else {																																			//if it is a single datum
-			left[0] = left[1] = indices[1][0];
+		if (indices.length > 2) {																																						//if our current merging section is not a single datum
+			colors.push([indices[1][0], indices[1][1] - 1, COLORS.cyan], [indices[2][0], indices[2][1] - 1, COLORS.yellow]);
+		} else {																																																								//if it is a single datum
+			colors.push([indices[1][1], indices[1][1], COLORS.cyan]);
 		}
+
+		colors.push([0, this.endSorted, COLORS.green]);
 		
 		return [this.data,
 						this.sorted,
-						[[this.i, this.i, 'red'],
-						 left,
-						 right,
-						 [0, this.endSorted, 'green']]
+						colors
 					 ];
 	}
 

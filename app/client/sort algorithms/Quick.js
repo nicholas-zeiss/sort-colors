@@ -2,6 +2,9 @@
 Here we have the class responsible for implementing quicksort. The pivot is always chosen as the last item in the section being partitioned.
 **/
 
+import COLORS from '../utils/colors';
+
+
 class Quick {
 	constructor(data) {
 		this.data = data;
@@ -23,7 +26,7 @@ class Quick {
 
 	tick() {
 		if (this.sorted) {
-			return [this.data, true, [[0, this.data.length, 'green']]];
+			return [this.data, true, [[0, this.data.length, COLORS.green]]];
 		
 		} else if (this.selectPivot) {
 			let middle = Math.floor((this.currSection[1] - this.currSection[0]) / 2) + this.currSection[0];
@@ -47,12 +50,12 @@ class Quick {
 
 		return [this.data,
 		        this.sorted,
-		        [[this.active, this.active, 'red'],
-		         [this.currSection[1],this.currSection[1], 'plum'],
-		         [this.currSection[0], this.i, 'cyan'],
-		         [this.i, this.j - 1, 'yellow'],
-		         [this.j - 1, this.currSection[1], 'springgreen'],
-		         [0, this.data.length - 1, 'green']]
+		        [[this.active, this.active, COLORS.red],
+		         [this.currSection[1],this.currSection[1], COLORS.purple],
+		         [this.currSection[0], this.i, COLORS.cyan],
+		         [this.i, this.j - 1, COLORS.yellow],
+		         [this.j - 1, this.currSection[1], COLORS.lightGreen],
+		         [0, this.data.length - 1, COLORS.green]]
 		       ];
 	}
 

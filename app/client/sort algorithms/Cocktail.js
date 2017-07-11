@@ -2,6 +2,8 @@
 Here we implement cocktail shaker sort, which is like a bubble sort that goes both ways
 **/
 
+import COLORS from '../utils/colors';
+
 class Cocktail {
 	constructor(data) {
 		this.data = data;
@@ -15,7 +17,7 @@ class Cocktail {
 
 	tick() {
 		if (this.sorted) {
-			return [this.data, true, [[0, this.data.length, 'green']]];
+			return [this.data, true, [[0, this.data.length, COLORS.green]]];
 		}
 
 		if (this.data[this.i] > this.data[this.i + 1]) {
@@ -35,9 +37,9 @@ class Cocktail {
 
 		return [this.data,
 					  this.sorted,
-					  [[this.i, this.i, 'red'],
-					   [0, this.first - 1, 'green'],
-					   [this.last + 1, this.data.length - 1, 'green']]
+					  [[this.i, this.i, COLORS.red],
+					   [0, this.first - 1, COLORS.green],
+					   [this.last + 1, this.data.length - 1, COLORS.green]]
 					 ];
 	}
 };

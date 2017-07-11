@@ -2,15 +2,17 @@
 Here we have the class responsible for implementing shellsort
 **/
 
+import COLORS from '../utils/colors';
+
 class Shell {
 	constructor(data) {
 		this.data = data;
 		this.sorted = false;
 		
-		this.runs = [57, 23, 10, 4, 1];
-		this.gap = 132;
+		this.runs = [132, 57, 23, 10, 4, 1];
+		this.gap = 301;
 		
-		while(this.gap >= this.data.length) {
+		while(this.gap >= data.length) {
 			this.gap = this.runs.shift();
 		}
 
@@ -23,7 +25,7 @@ class Shell {
 
 	tick() {
 		if (this.sorted) {
-			return [this.data, true, [[0, this.data.length - 1, 'green']]];
+			return [this.data, true, [[0, this.data.length - 1, COLORS.green]]];
 
 		} else if (this.j >= this.gap && this.data[this.j - this.gap] > this.temp) {
 			this.active = this.j;
@@ -52,9 +54,15 @@ class Shell {
 			this.sorted = true;
 		}
 
+		let colors = [[this.active, this.active, COLORS.red]];
+		
+		for (let i = this.gap * Math.floor(this.i / this.gap), l = 50; i >= 0; i -= this.gap, l *= .7) {
+			colors = colors.concat([[i, i + this.gap - 1, `hsl(235, 100%, ${100 - l}%)`]]);
+		}
+
 		return [this.data,
 						this.sorted,
-						[[this.active, this.active, 'red']]
+						colors
 					 ];
 	}
 }

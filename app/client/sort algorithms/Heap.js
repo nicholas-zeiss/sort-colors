@@ -4,6 +4,7 @@ We first build said heap out of the whole array, then swap the first (greatest) 
 of the heap. We then rebuild the heap and repeat the swap/rebuild steps until the heap no longer contains any elements.
 **/
 
+import COLORS from '../utils/colors';
 import {siftHeap, leftChild, rightChild, allChildren} from '../utils/heapUtils';
 
 
@@ -32,7 +33,7 @@ class Heap {
 
 	tick() {
 		if (this.sorted) {
-			return [this.data, true, [[0, this.data.length, 'green']]];
+			return [this.data, true, [[0, this.data.length, COLORS.green]]];
 		
 		} else if (this.sifting && !this.toSwap) {										//heap is being sifted either in initial build or after a value was swapped to the sorted section
 			this.sift();
@@ -52,9 +53,9 @@ class Heap {
 		
 		return [this.data,
 						this.sorted,
-						[[this.active, this.active, 'red'],
-						 [0, this.heapEnd, 'yellow'],
-						 [this.heapEnd + 1, this.data.length - 1, 'green']]
+						[[this.active, this.active, COLORS.red],
+						 [0, this.heapEnd, COLORS.yellow],
+						 [this.heapEnd + 1, this.data.length - 1, COLORS.green]]
 					 ];
 	}
 

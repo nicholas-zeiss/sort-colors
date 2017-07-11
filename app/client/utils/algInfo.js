@@ -1,5 +1,8 @@
+/**
+Descriptions of the colors used in displaying each sort
+**/
 
-
+import React from 'react';			//so we can use jsx
 
 const ALG_INFO = {
 	'Bubble Sort': 'Green: sorted',

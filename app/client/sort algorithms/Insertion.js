@@ -2,6 +2,8 @@
 Here we have the class responsible for implementing insertion sort
 **/
 
+import COLORS from '../utils/colors';
+
 
 class Insertion {
 	constructor(data) {
@@ -13,7 +15,7 @@ class Insertion {
 
 	tick() {
 		if (this.sorted) {
-			return [this.data, true, [[0, this.data.length - 1, 'green']]];
+			return [this.data, true, [[0, this.data.length - 1, COLORS.green]]];
 
 		} else if (this.i > 0 && this.data[this.i] < this.data[this.i - 1]) {
 			[this.data[this.i], this.data[this.i - 1]] = [this.data[this.i - 1], this.data[this.i]];
@@ -32,8 +34,8 @@ class Insertion {
 
 		return [this.data,
 						this.sorted,
-						[[this.i, this.i, 'red'],
-						 [0, this.unsorted - 1, 'green']]
+						[[this.i, this.i, COLORS.red],
+						 [0, this.unsorted - 1, COLORS.green]]
 					 ];
 	}
 }

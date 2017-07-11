@@ -3,6 +3,7 @@ Here we have the class responsible for implementing gnome sort. Almost identical
 it proceeds through all the sorted elements greater to reach the unsorted section, whereas insertion sort simply jumps to the unsorted section.
 **/
 
+import COLORS from '../utils/colors';
 
 class Gnome {
 	constructor(data) {
@@ -14,7 +15,7 @@ class Gnome {
 
 	tick() {
 		if (this.sorted) {
-			return [this.data, true, [[0, this.data.length, 'green']]];
+			return [this.data, true, [[0, this.data.length, COLORS.green]]];
 		
 		} else if (this.i > 0 && this.data[this.i] < this.data[this.i - 1]) {
 			[this.data[this.i], this.data[this.i - 1]] = [this.data[this.i - 1], this.data[this.i]];
@@ -31,8 +32,8 @@ class Gnome {
 
 		return [this.data,
 					  this.sorted,
-					  [[this.i, this.i, 'red'],
-					   [0, this.endSorted, 'green']]
+					  [[this.i, this.i, COLORS.red],
+					   [0, this.endSorted, COLORS.green]]
 					 ];
 	}
 }

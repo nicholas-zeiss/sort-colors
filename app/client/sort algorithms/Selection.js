@@ -2,6 +2,8 @@
 Here we have the class responsible for implementing selection sort
 **/
 
+import COLORS from '../utils/colors';
+
 class Selection {
 	constructor(data) {
 		this.data = data;
@@ -10,14 +12,13 @@ class Selection {
 		this.unsorted = 0;				  //beginning of unsorted section
 		this.min = [0, data[0]];		//minimum we find each traversal of the unsorted section
 		this.inSwap = false;				//used to split swaps across multiple ticks
-		this.firstLoop = true;
 	}
 
 	tick() {
 		let active = -1;
 
 		if (this.sorted) {
-			return [this.data, true, [[0, this.data.length, 'green']]];
+			return [this.data, true, [[0, this.data.length, COLORS.green]]];
 
 		} else if (this.inSwap) {
 			this.inSwap = false, active = this.min[0];
@@ -36,7 +37,7 @@ class Selection {
 			this.min[0] = -1;			//don't want it to be highlighted when rendered
 
 		} else if (this.i == this.data.length) {
-			this.inSwap = true, active = this.unsorted, this.firstLoop = false;
+			this.inSwap = true, active = this.unsorted;
 
 		} else {
 			active = this.i++;
@@ -44,10 +45,9 @@ class Selection {
 
 		return [this.data,
 		        this.sorted,
-		        [[active, active, 'red'],
-		         [this.min[0], this.min[0], 'orange'],
-		         [this.unsorted, this.firstLoop ? this.i : this.data.length, 'cyan'],
-		         [0, this.unsorted - 1, 'green']]
+		        [[active, active, COLORS.red],
+		         [this.min[0], this.min[0], COLORS.orange],
+		         [0, this.unsorted - 1, COLORS.green]]
 		       ];
 	}
 }
