@@ -17,11 +17,18 @@ class Quick {
 
 		this.swapping = false;
 		this.swap = -1;
+
+		this.selectPivot = true;
 	}
 
 	tick() {
 		if (this.sorted) {
 			return [this.data, true, [[0, this.data.length, 'green']]];
+		
+		} else if (this.selectPivot) {
+			let middle = Math.floor((this.currSection[1] - this.currSection[0]) / 2) + this.currSection[0];
+			[this.data[middle], this.data[this.currSection[1]]] = [this.data[this.currSection[1]], this.data[middle]];			//select a pivot
+			this.selectPivot = false;
 		
 		} else if (this.swapping) {
 			[this.data[this.i], this.data[this.swap]] = [this.data[this.swap], this.data[this.i]];
@@ -75,10 +82,13 @@ class Quick {
 	setUpPartition() {
 		this.currSection = this.sections.shift();
 			
-		if (this.currSection[0] < this.currSection[1]) {			//if currSection is valid, otherwise we just move to next one
+		if (this.currSection[0] < this.currSection[1]) {			//if currSection is valid, otherwise we just move to next one	
+			this.selectPivot = true;
 			this.partitioning = true;
+			
 			this.i = this.currSection[0] - 1;
 			this.j = this.currSection[0];
+			
 			this.active = this.j;
 		}
 	}

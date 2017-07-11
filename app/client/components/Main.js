@@ -165,7 +165,7 @@ class Main extends React.Component {
 	}
 
 	changeNum(n) {
-		if (this.state.numItemsToSort + n <= 200 && this.state.numItemsToSort + n >= 10) {
+		if (this.state.numItemsToSort + n <= 300 && this.state.numItemsToSort + n >= 10) {
 			this.state.sorter.reset(ALGORITHMS[this.state.algorithm], this.state.numItemsToSort + n);
 
 			this.setState({
