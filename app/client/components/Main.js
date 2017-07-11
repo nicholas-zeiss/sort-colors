@@ -18,7 +18,6 @@ import Merge from '../sort algorithms/Merge';
 import Quick from '../sort algorithms/Quick';
 import Selection from '../sort algorithms/Selection';
 import Shell from '../sort algorithms/Shell';
-import Tree from '../sort algorithms/Tree';
 
 import Sorter from '../utils/Sorter';
 import ALG_INFO from '../utils/algInfo';
@@ -34,8 +33,7 @@ const ALGORITHMS = {
 	'Merge Sort': Merge,
 	'Quicksort': Quick,
 	'Selection Sort': Selection,
-	'Shellsort': Shell,
-	'Tree Sort': Tree
+	'Shellsort': Shell
 };
 
 const KEYS = Object.keys(ALGORITHMS).sort();

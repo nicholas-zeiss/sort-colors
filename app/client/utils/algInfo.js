@@ -11,8 +11,7 @@ const ALG_INFO = {
 	'Merge Sort': 'Green: partially sorted  Cyan: current left  Yellow: current right  White: unmodified',
 	'Quicksort': 'Cyan: section less than pivot  Yellow: section above pivot  Light Green: in section being partitioned, but not yet reached  Purple: pivot  Green: partially sorted',
 	'Selection Sort': 'Cyan: unsorted but modified  Orange: current min  White: unmodified  Green: sorted',
-	'Shellsort': '',
-	'Tree Sort': ''
+	'Shellsort': ''
 };
 
 

@@ -2,7 +2,6 @@
 This class serves as middleware between the sorting algorithm and the app rendering it
 **/
 
-import shuffle from './shuffle';
 
 class Sorter {
 	constructor(sort, numItems) {
@@ -26,6 +25,17 @@ class Sorter {
 			this.colors = [[0, this.data.length - 1, 'green']];
 		}
 	}
+}
+
+function shuffle(arr) {
+	let currIndex = arr.length;
+
+	while (currIndex > 0) {
+		let rand = Math.floor(currIndex-- * Math.random());
+		[arr[currIndex], arr[rand]] = [arr[rand], arr[currIndex]];
+	}
+
+	return arr;
 }
 
 export default Sorter;
