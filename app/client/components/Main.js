@@ -12,9 +12,12 @@ import Bubble from '../sort algorithms/Bubble';
 import Gnome from '../sort algorithms/Gnome';
 import Heap from '../sort algorithms/Heap';
 import Insertion from '../sort algorithms/Insertion';
+import Intro from '../sort algorithms/Intro';
 import Merge from '../sort algorithms/Merge';
 import Quick from '../sort algorithms/Quick';
 import Selection from '../sort algorithms/Selection';
+import Shell from '../sort algorithms/Shell';
+import Tree from '../sort algorithms/Tree';
 
 import Sorter from '../utils/Sorter';
 import ALG_INFO from '../utils/algInfo';
@@ -25,9 +28,12 @@ const ALGORITHMS = {
 	'Gnome Sort': Gnome,
 	'Heapsort': Heap,
 	'Insertion Sort': Insertion,
+	'Introsort': Intro,
 	'Merge Sort': Merge,
 	'Quicksort': Quick,
 	'Selection Sort': Selection,
+	'Shellsort': Shell,
+	'Tree Sort': Tree
 };
 
 const KEYS = Object.keys(ALGORITHMS).sort();
