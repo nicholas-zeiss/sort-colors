@@ -20,7 +20,7 @@ import Selection from '../sort algorithms/Selection';
 import Shell from '../sort algorithms/Shell';
 
 import Sorter from '../utils/Sorter';
-import ALG_INFO from '../utils/algInfo';
+import COLOR_KEY from '../utils/colorKey';
 
 
 const ALGORITHMS = {
@@ -180,36 +180,40 @@ class Main extends React.Component {
 				<div className='page-header'>
 					<h1 className='text-center' id='header'>Visual Sorter</h1>
 				</div>
-				<div className='container-fluid well' id='sort-container'>
-					<div className='row'>
-						<h3 id='algorithm'>{`Using ${this.state.algorithm}`}</h3>
-						{this.state.unsorted ? null : <h4 className='pull-right' id='color-key'>{ALG_INFO[this.state.algorithm]}</h4>}
-					</div>
-					<div className='row' ref={this.updateCanvasDimensions}>
-						<View width={this.state.canvasWidth} 
-									height={this.state.canvasHeight} 
-									data={this.state.sorter.data}
-									colors={this.state.sorter.colors}
-									validHeap={this.state.algorithm == 'Heapsort' && !this.state.sorter.sorted ? this.state.sorter.sort.validHeap : null}/> 
-					</div>
-					<div className='row'>
-						<div className='col-md-6 text-center'>
-							<Controls algorithms={KEYS}
-												currAlg={this.state.algorithm}
-												chooseAlgorithm={this.chooseAlgorithm.bind(this)}
-												sorting={this.state.sorting} 
-												sorted={this.state.sorter.sorted}
-												reset={this.reset.bind(this)} 
-												stepForward={this.stepForward.bind(this)}
-												toggleSorting={this.toggleSorting.bind(this)}/>
+				<div className='panel panel-default' id='app-panel'>
+					<div className='panel-heading' id='alg-info'>
+						<h2 id='algorithm'>{this.state.algorithm}</h2>
+						<div className='well pull-right' id={this.state.algorithm == 'Introsort' ? 'color-key-well-intro' : 'color-key-well'}>
+							{COLOR_KEY[this.state.algorithm]}
 						</div>
-						<div className='col-md-6 text-center'>
-							<Settings delay={this.state.delay} 
-												changeDelay={this.changeDelay.bind(this)} 
-												changeNum={this.changeNum.bind(this)} 
-												numItems={this.state.numItemsToSort} 
-												sorting={this.state.sorting}/>
+					</div>
+					<div className='panel-body container-fluid' id='sort-container'>
+						<div className='row' ref={this.updateCanvasDimensions}>
+							<View width={this.state.canvasWidth} 
+										height={this.state.canvasHeight} 
+										data={this.state.sorter.data}
+										colors={this.state.sorter.colors}
+										validHeap={this.state.sorter.sort.validHeap && !this.state.sorter.sorted ? this.state.sorter.sort.validHeap : null}/> 
 						</div>
+						<div className='row'>
+							<div className='col-md-6 text-center'>
+								<Controls algorithms={KEYS}
+													currAlg={this.state.algorithm}
+													chooseAlgorithm={this.chooseAlgorithm.bind(this)}
+													sorting={this.state.sorting} 
+													sorted={this.state.sorter.sorted}
+													reset={this.reset.bind(this)} 
+													stepForward={this.stepForward.bind(this)}
+													toggleSorting={this.toggleSorting.bind(this)}/>
+							</div>
+							<div className='col-md-6 text-center'>
+								<Settings delay={this.state.delay} 
+													changeDelay={this.changeDelay.bind(this)} 
+													changeNum={this.changeNum.bind(this)} 
+													numItems={this.state.numItemsToSort} 
+													sorting={this.state.sorting}/>
+							</div>
+					</div>
 					</div>
 				</div>
 			</div>

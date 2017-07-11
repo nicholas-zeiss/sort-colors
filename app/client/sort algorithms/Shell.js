@@ -57,7 +57,7 @@ class Shell {
 		let colors = [[this.active, this.active, COLORS.red]];
 		
 		for (let i = this.gap * Math.floor(this.i / this.gap), l = 50; i >= 0; i -= this.gap, l *= .7) {
-			colors = colors.concat([[i, i + this.gap - 1, `hsl(235, 100%, ${100 - l}%)`]]);
+			colors = colors.concat([[i, i + this.gap - 1, `hsl(235, 60%, ${Math.floor(100 - l)}%)`]]);
 		}
 
 		return [this.data,
