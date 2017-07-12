@@ -1,5 +1,5 @@
 /**
-This class serves as middleware between the sorting algorithm and the app rendering it
+This class serves as the controller for the sort model it holds
 **/
 
 import COLORS from './colors';
