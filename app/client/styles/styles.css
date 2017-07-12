@@ -17,6 +17,10 @@
 	margin-right: 5px;
 }
 
+#info-popover:focus {
+	outline: 0;
+}
+
 #color-key-well {
 	padding: 5px;
 	margin: -4px 0px 0px 0px;

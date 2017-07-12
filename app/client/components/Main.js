@@ -20,6 +20,8 @@ import Selection from '../sort algorithms/Selection';
 import Shell from '../sort algorithms/Shell';
 
 import Sorter from '../utils/Sorter';
+
+import ALG_INFO from '../utils/algInfo';
 import COLOR_KEY from '../utils/colorKey';
 
 
@@ -66,6 +68,12 @@ class Main extends React.Component {
 				canvasWidth: this.state.canvasDiv.offsetWidth - 100
 			});
 		};
+
+		$('#info-popover').popover({
+			content: ALG_INFO[this.state.algorithm],
+			html: true,
+			trigger: 'hover'
+		});
 	}
 
 	/**
@@ -174,6 +182,20 @@ class Main extends React.Component {
 		}
 	}
 
+	/**
+<button id='info-popover'
+							        tabIndex='0'
+							        data-trigger='focus'
+							        type="button"
+											className="btn btn-xs btn-info"
+											data-toggle="popover"
+											data-content={ALG_INFO[this.state.algorithm]}>
+								<span className='glyphicon glyphicon-info-sign'></span>
+							</button>
+	**/
+
+
+
 	render() {
 		return (
 			<div>
@@ -182,7 +204,15 @@ class Main extends React.Component {
 				</div>
 				<div className='panel panel-default' id='app-panel'>
 					<div className='panel-heading' id='alg-info'>
-						<h2 id='algorithm'>{this.state.algorithm}</h2>
+						<h2 id='algorithm'>{this.state.algorithm}&nbsp;
+							<button id='info-popover'
+							        type="button"
+											className="btn btn-xs btn-info"
+											data-toggle="popover"
+											>
+								<span className='glyphicon glyphicon-info-sign'></span>
+							</button>
+						</h2>
 						<div className='well pull-right' id={this.state.algorithm == 'Introsort' ? 'color-key-well-intro' : 'color-key-well'}>
 							{COLOR_KEY[this.state.algorithm]}
 						</div>
