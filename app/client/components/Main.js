@@ -70,10 +70,13 @@ class Main extends React.Component {
 		};
 
 		$('#info-popover').popover({
-			content: ALG_INFO[this.state.algorithm],
 			html: true,
 			trigger: 'hover'
 		});
+	}
+
+	componentDidUpdate() {
+		$('#info-popover').attr('data-content', ALG_INFO[this.state.algorithm]);
 	}
 
 	/**
@@ -182,19 +185,6 @@ class Main extends React.Component {
 		}
 	}
 
-	/**
-<button id='info-popover'
-							        tabIndex='0'
-							        data-trigger='focus'
-							        type="button"
-											className="btn btn-xs btn-info"
-											data-toggle="popover"
-											data-content={ALG_INFO[this.state.algorithm]}>
-								<span className='glyphicon glyphicon-info-sign'></span>
-							</button>
-	**/
-
-
 
 	render() {
 		return (
@@ -209,7 +199,7 @@ class Main extends React.Component {
 							        type="button"
 											className="btn btn-xs btn-info"
 											data-toggle="popover"
-											>
+											disabled={this.state.sorting}>
 								<span className='glyphicon glyphicon-info-sign'></span>
 							</button>
 						</h2>
