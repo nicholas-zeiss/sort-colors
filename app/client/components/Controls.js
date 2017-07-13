@@ -1,5 +1,5 @@
 /**
-This component allows us to choose which sorting algorithm we desire and to start/stop the sort
+This component allows us to choose which sorting algorithm we desire and to play/pause/reset the sort as well as move forward one step
 **/
 
 import React from 'react';
@@ -22,7 +22,9 @@ const Controls = (props) => {
 				<button type='button' className='btn btn-success' onClick={props.stepForward} disabled={props.sorting || props.sorted}>
 					<span className='glyphicon glyphicon-step-forward'></span>
 				</button>
-				<button type='button' className='btn btn-danger' onClick={props.reset} disabled={props.sorting}><span className='glyphicon glyphicon-refresh'></span></button>
+				<button type='button' className='btn btn-danger' onClick={props.reset} disabled={props.sorting}>
+					<span className='glyphicon glyphicon-refresh'></span>
+				</button>
 			</div>
 		</div>
 	);

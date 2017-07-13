@@ -4,44 +4,58 @@ Here we implement cocktail shaker sort, which is like a bubble sort that goes bo
 
 import COLORS from '../utils/colors';
 
+
 class Cocktail {
 	constructor(data) {
 		this.data = data;
-		this.last = this.data.length - 1;
-		this.sorted = false;
+		
+		this.index = 0;
+		this.inc = 1;			//increment for index each tick, -1 or 1
+		
 		this.first = 0;
-		this.i = 0;
-		this.inc = 1;
-		this.swap = false;
+		this.last = this.data.length - 1;
+		
+		this.swapThisLoop = false;
+		this.sorted = false;
+		
+		this.inSwap = false;
 	}
 
+  //moves cocktail sort forward by one comparison or swap
+	//returns [array data, bool sorted, arr colorScheme]
 	tick() {
+		let active = this.index;
+
 		if (this.sorted) {
 			return [this.data, true, [[0, this.data.length, COLORS.green]]];
-		}
-
-		if (this.data[this.i] > this.data[this.i + 1]) {
-			[this.data[this.i], this.data[this.i + 1]] = [this.data[this.i + 1], this.data[this.i]];
-			this.swap = true;
-		}
-
-		if ((this.i + 1 == this.last && this.inc == 1) || (this.i == this.first && this.inc == -1)) {
+		
+		} else if (this.index + this.inc == this.last + 1 || this.index + this.inc == this.first - 1) {
 			this.inc == 1 ? this.last-- : this.first++;
 			this.inc *= -1;
-			this.sorted = !this.swap;
-			this.swap = false;
+			
+			this.sorted = !this.swapThisLoop;
+			this.swapThisLoop = false;
 					
+		} else if (this.inSwap) {
+			[this.data[this.index], this.data[this.index + 1]] = [this.data[this.index + 1], this.data[this.index]];		
+
+			this.inSwap = false;
+			active = this.index += this.inc;
+
+		} else if (this.data[this.index] > this.data[this.index + 1]) {
+			this.swapThisLoop = this.inSwap = true;
+		
 		} else {
-			this.i += this.inc;
+			this.index += this.inc;
 		}
 
 		return [this.data,
 					  this.sorted,
-					  [[this.i, this.i, COLORS.red],
+					  [[active, active, COLORS.red],
 					   [0, this.first - 1, COLORS.green],
 					   [this.last + 1, this.data.length - 1, COLORS.green]]
 					 ];
 	}
-};
+}
 
 export default Cocktail;

@@ -1,8 +1,8 @@
 
 const ALG_INFO = {
-	'Bubble Sort': `<p>One of the most elementary sorts, bubble sorts loops forward through the data swapping adjacent items if out of order.
+	'Bubble Sort': `<p>One of the most elementary sorts, bubble sort loops forward through the data and swaps out of order adjacent items.
 		                At the end of each loop the largest item in the unsorted portion is brought to the end of the list. It is rarely
-		                used in practice due to it's O(n<sup>2</sup>) worst case time complexity which makes it inefficient for large lists. For smaller lists
+		                used in practice due to its O(n<sup>2</sup>) worst case time complexity which makes it inefficient for large lists. For smaller lists
 		                where O(n<sup>2</sup>) algorithms are more commonly used it is outperformed by insertion sort.<br><br>
 		                Time complexity:<br>
 		                Worst - O(n<sup>2</sup>)<br>

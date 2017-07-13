@@ -1,5 +1,8 @@
 /**
-This is our top level component which contains all subcomponents.
+This is our top level component which contains all subcomponents. It is the view component of our MVC and linkes the user interface to the controller, which is an
+instance of the Sorter class held in this component's state. The subcomponents it contains are View, Controller, and Settings. View renders the data being sorted
+to a canvas. Controller allows the user to change algorithms, pause/play, step forward, and reset the sorter. Settings allows the user to change the number of items
+to be sorted and to change the delay between the ticks of the sorter.
 **/
 
 import React from 'react';
@@ -38,7 +41,8 @@ const ALGORITHMS = {
 	'Shellsort': Shell
 };
 
-const KEYS = Object.keys(ALGORITHMS).sort();
+const KEYS = Object.keys(ALGORITHMS).sort();			//ironically we do not use any of our own algorithms here
+
 
 class Main extends React.Component {
 	constructor(props) {
@@ -47,19 +51,23 @@ class Main extends React.Component {
 		this.state = {
 			canvasHeight: 300,						//default values, will be changed when this component mounts and we know how much space we have
 			canvasWidth: 500,
-			canvasDiv: null,							//holds a reference to the div where View is rendered so we can track it's dimensions and pass it down to View
+			canvasDiv: null,							//holds a reference to the div where View is rendered so we can track its dimensions to update the above two variables
+			
 			sorting: false,
+			unsorted: true,								//have we started sorting the data yet?
+			
+			numItemsToSort: 100,
+			delay: 20,
+			
 			algorithm: 'Bubble Sort',							
 			sorter: new Sorter(Bubble, 100),
-			unsorted: true,	
-			numItemsToSort: 100,
-			intervalID: undefined,
-			delay: 20
+			intervalID: undefined
 		};
 	}
 
 	/**
-	On mount we create a listener for window resizes which triggers the View to receive new dimensions
+	On mount we create a listener for window resizes which triggers the View to receive new dimensions, we also intialze the bootstrap popover
+	that displays information about the algorithm
 	**/
 	componentDidMount() {
 		window.onresize = () => { 
@@ -75,14 +83,16 @@ class Main extends React.Component {
 		});
 	}
 
+
 	componentDidUpdate() {
 		$('#info-popover').attr('data-content', ALG_INFO[this.state.algorithm]);
 	}
 
 	/**
 	This function is passed as a ref to the div holding View which we need access to to resize the canvas when the window resizes.
-	The funky syntax gives it lexical this so that we can use this.setState. Defining an arrow function inline on the div or binding 
-	a function there results in it executing on updates and not just mounts which leads to an infinite loop of updates.
+	The funky syntax allows us to have lexical this without having to define it in the constructor or bind it. Binding 
+	a function inline when passing it as a ref caues it to execue on updates and not just mounts. As we setState here such a pattern would 
+	cause an infinite loop of updates.
 	**/
 	updateCanvasDimensions = (row) => {					
 		if (row) {
@@ -119,6 +129,7 @@ class Main extends React.Component {
 		}
 	}
 
+
 	stepForward() {
 		this.state.sorter.tick();
 		
@@ -127,9 +138,7 @@ class Main extends React.Component {
 		});
 	}
 
-	/**
-	Called by the animating interval created in toggleSorting if sort is completed, or by user if the pause button is activated
-	**/
+
 	pauseSorting() {
 		clearInterval(this.state.intervalID);
 		
@@ -139,11 +148,10 @@ class Main extends React.Component {
 		});
 	}
 	
-	/**
-	Resets the sorter, generates new random data to sort
-	**/
+
 	reset() {
 			clearInterval(this.state.intervalID);
+			
 			this.state.sorter.reset(ALGORITHMS[this.state.algorithm], this.state.numItemsToSort);
 
 			this.setState({
@@ -154,9 +162,7 @@ class Main extends React.Component {
 		
 	}
 
-	/**
-	Sent as a prop to Controls, allows us to change algorithms if the sort is not in progress
-	**/
+
 	chooseAlgorithm(alg) {
 		this.state.sorter.reset(ALGORITHMS[alg], this.state.numItemsToSort);
 		
@@ -194,7 +200,7 @@ class Main extends React.Component {
 				</div>
 				<div className='panel panel-default' id='app-panel'>
 					<div className='panel-heading' id='alg-info'>
-						<h2 id='algorithm'>{this.state.algorithm}&nbsp;
+						<h2 id='algorithm'>{this.state.algorithm}
 							<button id='info-popover'
 							        type="button"
 											className="btn btn-xs btn-info"
@@ -203,7 +209,7 @@ class Main extends React.Component {
 								<span className='glyphicon glyphicon-info-sign'></span>
 							</button>
 						</h2>
-						<div className='well pull-right' id={this.state.algorithm == 'Introsort' ? 'color-key-well-intro' : 'color-key-well'}>
+						<div className='well pull-right' id='color-key-well'>
 							{COLOR_KEY[this.state.algorithm]}
 						</div>
 					</div>
@@ -229,8 +235,8 @@ class Main extends React.Component {
 							<div className='col-md-6 text-center'>
 								<Settings delay={this.state.delay} 
 													changeDelay={this.changeDelay.bind(this)} 
-													changeNum={this.changeNum.bind(this)} 
 													numItems={this.state.numItemsToSort} 
+													changeNum={this.changeNum.bind(this)} 
 													sorting={this.state.sorting}/>
 							</div>
 					</div>

@@ -51,7 +51,6 @@ class Heap {
 			this.sorted = true;
 		}
 		
-		console.log('heap tick');
 		return [this.data,
 						this.sorted,
 						[[this.active, this.active, COLORS.red],
