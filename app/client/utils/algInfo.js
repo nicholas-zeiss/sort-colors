@@ -46,11 +46,11 @@ const ALG_INFO = {
 
 
 	'Heapsort':  `<p>Heapsort is an O(<i>n</i> log <i>n</i>) algorithm. It is on average slower than quicksort but has a worst case
-									run time of O(<i>n</i> log <i>n</i>) vs. quicksort's O(n<sup>2</sup>). It works by using a binary max heap, a type
-									of data structure similar to a tree. In a binary max hap ach node has two children and is guaranteed to have a larger value than them.
-									Heap sort first turns the data into such a heap in place. Knowing that the first element is the largest it swaps this with the last element
-									and no longer considers that last position part of the heap. It rebuilds the heap, swaps, and rebuilds until the heap is empty and all items
-									are sorted.
+									run time of O(<i>n</i> log <i>n</i>) vs quicksort's O(n<sup>2</sup>). It works by using a binary max heap, a type
+									of data structure similar to a tree. In a binary max heap each node has two children with values less than its own.
+									Heap sort first turns the data into such a heap in place. As the first element is the largest it swaps this with the last element;
+									the position of the last element is no longer considered part of the heap. It then rebuilds the heap. It continues to swap and rebuild until 
+									the heap is empty and all items are sorted.
 	                <br><br>
 	                Time complexity:<br>
 	                Worst - O(<i>n</i> log <i>n</i>)<br>

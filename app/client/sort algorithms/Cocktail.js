@@ -13,7 +13,7 @@ class Cocktail {
 		this.inc = 1;			//increment for index each tick, -1 or 1
 		
 		this.first = 0;
-		this.last = this.data.length - 1;
+		this.last = data.length - 1;
 		
 		this.swapThisLoop = false;
 		this.sorted = false;
@@ -22,7 +22,7 @@ class Cocktail {
 	}
 
   //moves cocktail sort forward by one comparison or swap
-	//returns [array data, bool sorted, arr colorScheme]
+	//returns [array data, bool sorted, array colorScheme]
 	tick() {
 		let active = this.index;
 

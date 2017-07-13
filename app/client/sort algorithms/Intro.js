@@ -2,8 +2,6 @@
 Here we have the class responsible for implementing introsort, a hybrid between quicksort and heapsort
 **/
 
-//TODO  HEAP STILL NOT PROPERLY COLORED?
-
 import Heap from './Heap';
 import Quick from './Quick';
 

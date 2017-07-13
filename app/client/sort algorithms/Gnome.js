@@ -5,34 +5,47 @@ it proceeds through all the sorted elements greater to reach the unsorted sectio
 
 import COLORS from '../utils/colors';
 
+
 class Gnome {
 	constructor(data) {
 		this.data = data;
-		this.i = 0;
+		
+		this.index = 0;
 		this.endSorted = 0;
+		
 		this.sorted = false;
+
+		this.inSwap = false;
 	}
 
+  //moves gnome sort forward by one comparison or swap
+	//returns [array data, bool sorted, array colorScheme]
 	tick() {
+		let active = this.index;
+
 		if (this.sorted) {
 			return [this.data, true, [[0, this.data.length, COLORS.green]]];
 		
-		} else if (this.i > 0 && this.data[this.i] < this.data[this.i - 1]) {
-			[this.data[this.i], this.data[this.i - 1]] = [this.data[this.i - 1], this.data[this.i]];
-			this.i--;
-			this.endSorted = Math.max(this.i, this.endSorted);
+		} else if (this.inSwap) {
+			[this.data[this.index], this.data[this.index - 1]] = [this.data[this.index - 1], this.data[this.index]];
+			
+			this.endSorted = Math.max(this.index--, this.endSorted);
+			active = this.index;
+			this.inSwap = false;
 		
-		} else if (this.i == this.data.length - 1) {
+		} else if (this.index > 0 && this.data[this.index] < this.data[this.index - 1]) {
+			this.inSwap = true;
+		
+		} else if (this.index == this.data.length - 1) {
 			this.sorted = true;
 		
 		} else {
-			this.i++;
-			this.endSorted = Math.max(this.i, this.endSorted);
+			this.endSorted = Math.max(this.index++, this.endSorted);
 		}
 
 		return [this.data,
 					  this.sorted,
-					  [[this.i, this.i, COLORS.red],
+					  [[active, active, COLORS.red],
 					   [0, this.endSorted, COLORS.green]]
 					 ];
 	}

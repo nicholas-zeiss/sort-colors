@@ -19,7 +19,7 @@ class Bubble {
 	}
 
 	//moves bubble sort forward by one comparison or swap
-	//returns [array data, bool sorted, arr colorScheme]
+	//returns [array data, bool sorted, array colorScheme]
 	tick() {
 		let active = this.index;
 
