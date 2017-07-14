@@ -44,7 +44,7 @@ class Shell {
 
 			} else {
 				this.temp = this.data[this.i];
-				this.j = this.i;	
+				active = this.j = this.i;	
 			}
 		} else if (this.runs.length) {
 			active = this.i = this.gap = this.runs.shift();
