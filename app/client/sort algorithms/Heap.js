@@ -3,7 +3,7 @@ Here we have the class responsible for implementing heapsort. We have a helper f
 **/
 
 import COLORS from '../utils/colors';
-import {siftHeap, parent, leftChild, rightChild, allChildren} from '../utils/heapUtils';
+import {siftHeap, parentNode, leftChild, rightChild, allChildren} from '../utils/heapUtils';
 
 
 class Heap {
@@ -13,7 +13,7 @@ class Heap {
 		this.index = data.length - 1;
 		
 		this.builtHeap = false;
-		this.buildStart = parent(data.length - 1);
+		this.buildStart = parentNode(data.length - 1);
 		this.heapEnd = data.length - 1;
 		
 		this.sifting = false;
@@ -26,40 +26,40 @@ class Heap {
 		this.validHeap = new Set(); //holds the indices of the heap that are valid, used to render them blue in View component
 	}
 
-  //moves heapsort forward by one comparison or swap
+	//moves heapsort forward by one comparison or swap
 	//returns [array data, bool sorted, array colorScheme]
 	tick() {
 		if (this.sorted) {
 			return [this.data, true, [[0, this.data.length, COLORS.green]]];
-		
 		} else if (this.toSwap) {
 			this.makeSwap();
-		
 		} else if (this.sifting) {
 			this.sift();
-		
 		} else if (!this.builtHeap) {
 			this.buildHeap();
-		
 		} else if (this.heapEnd > 0) {
 			this.swapFirstLast();
-		
 		} else {
 			this.sorted = true;
 		}
 		
-		return [this.data,
-						this.sorted,
-						[[this.index, this.index, COLORS.red],
-						 [0, this.heapEnd, COLORS.yellow],
-						 [this.heapEnd + 1, this.data.length - 1, COLORS.green]]
-					 ];
+		//red for active, yellow for valid parts of heap, green for sorted
+		//invalid parts of heap will be rendered cyan in the View component by use of this.validHeap
+		return [
+			this.data,
+			this.sorted,
+			[
+				[this.index, this.index, COLORS.red],
+				[0, this.heapEnd, COLORS.yellow],
+				[this.heapEnd + 1, this.data.length - 1, COLORS.green]
+			]
+		];
 	}
 
 
 	sift() {		
 		this.validHeap.add(this.siftingStart);
-    this.index = this.siftingStart;
+		this.index = this.siftingStart;
 		
 		this.siftingStart = siftHeap(this.data, this.siftingStart, this.heapEnd);
 
@@ -73,14 +73,14 @@ class Heap {
 
 	updateValidHeap(child) {
 		if (child <= this.heapEnd) {			  
-		  if (this.siftingStart == child) {
-		  	//if siftingStart, root of the section of the heap we must rebuild, is equal to child
-		  	//we must mark all the children of child as invalid	  
-		  	allChildren(child, this.heapEnd).forEach(i => this.validHeap.delete(i));
-		  } else {
-		  	//if not, all children of child are valid and we mark them as such
-		  	allChildren(child, this.heapEnd).forEach(i => this.validHeap.add(i));
-		  }
+			if (this.siftingStart == child) {
+				//if siftingStart, root of the section of the heap we must rebuild, is equal to child
+				//we must mark all the children of child as invalid	  
+				allChildren(child, this.heapEnd).forEach(i => this.validHeap.delete(i));
+			} else {
+				//if not, all children of child are valid and we mark them as such
+				allChildren(child, this.heapEnd).forEach(i => this.validHeap.add(i));
+			}
 		}
 	}
 

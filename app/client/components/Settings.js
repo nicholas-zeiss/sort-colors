@@ -10,8 +10,8 @@ class Settings extends React.Component {
 	constructor(props) {
 		super(props);
 
-    //while there should only be one interval running at a time, erratic clicking can create more, 
-    //hence we must keep track of multiple intervals in an array
+		//while there should only be one interval running at a time, erratic clicking can create more, 
+		//hence we must keep track of multiple intervals in an array
 		this.state = {
 			intervals: [],
 			mouseStillDown: false

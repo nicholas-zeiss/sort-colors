@@ -7,7 +7,7 @@ import COLORS from './colors';
 
 class Sorter {
 	constructor(sort, numItems) {
-		this.data = shuffle(new Array(numItems).fill(1).map((n,i) => i + 1));				//randomized array
+		this.data = shuffle(new Array(numItems).fill(1).map((n,i) => i + 1));
 		this.sort = new sort(this.data);																						//sort is the actual sorting object
 		this.sorted = false;
 		this.colors = [];
@@ -29,6 +29,7 @@ class Sorter {
 	}
 }
 
+//randomizes an array
 function shuffle(arr) {
 	let currIndex = arr.length;
 

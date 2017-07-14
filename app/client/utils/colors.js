@@ -1,5 +1,3 @@
-
-
 const COLORS = {
 	background: '#1c1e22',
 	blue: '#3340cc',
@@ -13,6 +11,6 @@ const COLORS = {
 	red: '#ff3535',
 	white: '#f9f9f9',
 	yellow: '#f2f22b'
-}
+};
 
 export default COLORS;

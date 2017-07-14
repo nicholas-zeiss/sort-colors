@@ -15,7 +15,7 @@ function siftHeap(arr, root, end) {
 	
 	if (left > end) {
 		return root;
-  }
+	}
 
 	if (arr[root] < arr[left]) {
 		swap = left;
@@ -29,7 +29,7 @@ function siftHeap(arr, root, end) {
 }
 
 
-function parent(i) {
+function parentNode(i) {
 	return Math.floor((i - 1) / 2);
 }
 
@@ -65,4 +65,4 @@ function allChildren(i, end) {
 }
 
 
-export {siftHeap, parent, leftChild, rightChild, allChildren};
+export {siftHeap, parentNode, leftChild, rightChild, allChildren};

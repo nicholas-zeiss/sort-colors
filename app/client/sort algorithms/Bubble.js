@@ -34,23 +34,27 @@ class Bubble {
 			this.swapThisLoop = false;
 		
 		} else if (this.inSwap) {
-	  	[this.data[this.index], this.data[this.index + 1]] = [this.data[this.index + 1], this.data[this.index]];
-	  	
-	  	this.inSwap = false;
-	  	active = ++this.index;
+			[this.data[this.index], this.data[this.index + 1]] = [this.data[this.index + 1], this.data[this.index]];
 
-	  } else if (this.data[this.index] > this.data[this.index + 1]) {
+			this.inSwap = false;
+
+			active = ++this.index;
+		} else if (this.data[this.index] > this.data[this.index + 1]) {
 			this.swapThisLoop = this.inSwap = true;
 			
 		} else {
 			this.index++;
 		}
 
-		return [this.data,
-					  this.sorted,
-					  [[active, active, COLORS.red],
-					   [this.last + 1, this.data.length - 1, COLORS.green]]
-					 ];
+		//red for active, green for sorted
+		return [
+			this.data,
+			this.sorted,
+			[
+				[active, active, COLORS.red],
+				[this.last + 1, this.data.length - 1, COLORS.green]
+			]
+		];
 	}
 }
 

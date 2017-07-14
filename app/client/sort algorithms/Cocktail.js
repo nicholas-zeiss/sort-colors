@@ -21,7 +21,7 @@ class Cocktail {
 		this.inSwap = false;
 	}
 
-  //moves cocktail sort forward by one comparison or swap
+	//moves cocktail sort forward by one comparison or swap
 	//returns [array data, bool sorted, array colorScheme]
 	tick() {
 		let active = this.index;
@@ -49,12 +49,16 @@ class Cocktail {
 			this.index += this.inc;
 		}
 
-		return [this.data,
-					  this.sorted,
-					  [[active, active, COLORS.red],
-					   [0, this.first - 1, COLORS.green],
-					   [this.last + 1, this.data.length - 1, COLORS.green]]
-					 ];
+		//red for active, green for sorted
+		return [
+			this.data,
+			this.sorted,
+			[
+				[active, active, COLORS.red],
+				[0, this.first - 1, COLORS.green],
+				[this.last + 1, this.data.length - 1, COLORS.green]
+			]
+		];
 	}
 }
 

@@ -18,7 +18,7 @@ class Gnome {
 		this.inSwap = false;
 	}
 
-  //moves gnome sort forward by one comparison or swap
+	//moves gnome sort forward by one comparison or swap
 	//returns [array data, bool sorted, array colorScheme]
 	tick() {
 		let active = this.index;
@@ -43,11 +43,15 @@ class Gnome {
 			this.endSorted = Math.max(this.index++, this.endSorted);
 		}
 
-		return [this.data,
-					  this.sorted,
-					  [[active, active, COLORS.red],
-					   [0, this.endSorted, COLORS.green]]
-					 ];
+		//red for active, green for partially sorted
+		return [
+			this.data,
+			this.sorted,
+			[
+				[active, active, COLORS.red],
+				[0, this.endSorted, COLORS.green]
+			]
+		];
 	}
 }
 

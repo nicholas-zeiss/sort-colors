@@ -69,15 +69,15 @@ const COLOR_KEY = {
 
 								  &nbsp;&nbsp;<span style={{'fontSize':'18px',color:COLORS.white}}>|</span>&nbsp;&nbsp;
 
-								  <span style={{color:COLORS.yellow}}>&gt; pivot</span>
-
-								  &nbsp;&nbsp;<span style={{'fontSize':'18px',color:COLORS.white}}>|</span>&nbsp;&nbsp;
-
 								  <span style={{color:COLORS.cyan}}>&lt;= pivot</span>
 
 								  &nbsp;&nbsp;<span style={{'fontSize':'18px',color:COLORS.white}}>|</span>&nbsp;&nbsp;
 
-								  <span style={{color:COLORS.lightGreen}}>not yet partitioned</span>
+								  <span style={{color:COLORS.yellow}}>&gt; pivot</span>
+
+								  &nbsp;&nbsp;<span style={{'fontSize':'18px',color:COLORS.white}}>|</span>&nbsp;&nbsp;
+
+								  <span style={{color:COLORS.lightGreen}}>to be partitioned</span>
 
 								  &nbsp;&nbsp;<span style={{'fontSize':'18px',color:COLORS.white}}>|</span>&nbsp;&nbsp;
 
@@ -98,28 +98,20 @@ const COLOR_KEY = {
 
 								  &nbsp;&nbsp;<span style={{'fontSize':'18px',color:COLORS.white}}>|</span>&nbsp;&nbsp;
 
-								  <span style={{color:COLORS.green}}>partially sorted</span>
-
-								  &nbsp;&nbsp;<span style={{'fontSize':'18px',color:COLORS.white}}>|</span>&nbsp;&nbsp;
-
 								  <span style={{color:COLORS.cyan}}>left section</span>
 
 								  &nbsp;&nbsp;<span style={{'fontSize':'18px',color:COLORS.white}}>|</span>&nbsp;&nbsp;
 
 								  <span style={{color:COLORS.yellow}}>right section</span>
+
+								  &nbsp;&nbsp;<span style={{'fontSize':'18px',color:COLORS.white}}>|</span>&nbsp;&nbsp;
+
+								  <span style={{color:COLORS.green}}>partially sorted</span>
 								</h4>,
 	
 	'Quicksort':  <h4 className='pull-right' id='color-key'>
 								  <span style={{color:COLORS.white}}>Color key:&nbsp;&nbsp;</span>
 								  <span style={{color:COLORS.red}}>active</span>
-								  
-								  &nbsp;&nbsp;<span style={{'fontSize':'18px',color:COLORS.white}}>|</span>&nbsp;&nbsp;
-								  
-								  <span style={{color:COLORS.green}}>partially sorted</span>
-								  
-								  &nbsp;&nbsp;<span style={{'fontSize':'18px',color:COLORS.white}}>|</span>&nbsp;&nbsp;
-								  
-								  <span style={{color:COLORS.purple}}>pivot</span>
 								  
 								  &nbsp;&nbsp;<span style={{'fontSize':'18px',color:COLORS.white}}>|</span>&nbsp;&nbsp;
 								  
@@ -131,7 +123,15 @@ const COLOR_KEY = {
 								  
 								  &nbsp;&nbsp;<span style={{'fontSize':'18px',color:COLORS.white}}>|</span>&nbsp;&nbsp;
 								  
-								  <span style={{color:COLORS.lightGreen}}>not yet partitioned</span>
+								  <span style={{color:COLORS.lightGreen}}>to be partitioned</span>
+								  
+								  &nbsp;&nbsp;<span style={{'fontSize':'18px',color:COLORS.white}}>|</span>&nbsp;&nbsp;
+								  
+								  <span style={{color:COLORS.purple}}>pivot</span>
+								  
+								  &nbsp;&nbsp;<span style={{'fontSize':'18px',color:COLORS.white}}>|</span>&nbsp;&nbsp;
+								  
+								  <span style={{color:COLORS.green}}>partially sorted</span>
 								</h4>,
 	
 	

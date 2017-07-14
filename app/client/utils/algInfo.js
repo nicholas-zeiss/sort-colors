@@ -1,3 +1,6 @@
+/**
+Descriptions of the algorithms displayed by our popover button rendered in Main
+**/
 
 const ALG_INFO = {
 	'Bubble Sort': `<p>One of the most elementary sorts, bubble sort loops forward through the data and swaps out of order adjacent items.
@@ -83,10 +86,9 @@ const ALG_INFO = {
 
 
 
-	'Introsort': `<p>Introsort is an algorithm that mixes heapsort and quicksort. It first applies quicksort, but upon reaching a
+	'Introsort': `<p>Short for introspective sort, introsort is a hybrid of heapsort and quicksort. It starts with quicksort, but upon reaching a
 									deep enough level of recursion it switches over to heapsort. This combines the strongest aspects of both algorithms
-									and allows introsort to avoid the O(n<sup>2</sup>) worst case of quicksort.
-									run time of quicksort.
+									and allows introsort to avoid the O(n<sup>2</sup>) worst case behavior of quicksort.
 	                <br><br>
 	                Time complexity:<br>
 	                Worst - O(<i>n</i> log <i>n</i>)<br>
@@ -98,12 +100,13 @@ const ALG_INFO = {
 	              </p>`,
 
 
-	'Merge Sort':  `<p>Merge sort is an O(<i>n</i> log <i>n</i>), recursive algorithm. It (in its top-down implementation such as this) splits
-										the data in half into a left and right sections and then recurses on each. Eventually the sections will be either a length of
-										1 or 2 and are trivial to sort. It then goes back up the recursion tree merging the two sorted sections on that level together.
+	'Merge Sort':  `<p>Merge sort is a recursive O(<i>n</i> log <i>n</i>) algorithm. It (in a top-down implementation such as this one) splits
+										the data in half into a left and right section, recurses on those sections, and once they are sorted merges them back together.
+										The base case of this algorithm, which causes it to stop recursing and start moving back up the call stack, is when the data it
+										is called on is only 1 item.<br><br>
 										It is not used very often; it is usually slower than quicksort, and although comparable in speed to heapsort, merge sort has
-										a space requirement of O(n) vs. O(1) for heapsort. However, it is stable which is uncommon for an O(<i>n</i> log <i>n</i>) algorithm
-										and may be used if swapping data is especially difficult.
+										a space requirement of O(n) while heapsort has O(1). However, it is (usually) stable which is uncommon for an O(<i>n</i> log <i>n</i>)
+										algorithm and may be used if swapping data is an especially costly operation.
 		                <br><br>
 		                Time complexity:<br>
 		                Worst - O(<i>n</i> log <i>n</i>)<br>
@@ -116,10 +119,10 @@ const ALG_INFO = {
 
 
 
-	'Quicksort': `<p>De facto king of the sorts, quicksort is (on average) an O(<i>n</i> log <i>n</i>) algorithm. While it can reach 
-	                O(n<sup>2</sup>) behavior in the worst case this is very uncommon, and quicksort is generally always faster than
-	                merge sort and heapsort. It works by picking a piece of data to be a pivot, items less than the pivot are sorted to
-	                the left of the data set while objects that are greater are sorted to the right. The pivot is then placed in the middle,
+	'Quicksort': `<p>De facto king of the sorts, quicksort is (on average) an O(<i>n</i> log <i>n</i>) recursive algorithm. While it can reach 
+	                O(n<sup>2</sup>) behavior in the worst case, this is very uncommon and quicksort is generally faster than
+	                merge sort and heapsort. It works by first picking a piece of data to act as a pivot. Items less than or equal to the pivot 
+	                are sorted to the left while objects that are greater are sorted to the right. The pivot is placed in between,
 	                and quick sort recursively calls itself on either side.
 	                <br><br>
 	                Time complexity:<br>
@@ -149,17 +152,19 @@ const ALG_INFO = {
 
 
 
-	'Shellsort': `<p>Shellsort can be thought of as a generalization of insertion sort that, instead of comparing items
+	'Shellsort': `<p>Shellsort can be thought of as modified insertion sort that, instead of comparing items
 									with the preceding item, compares them to an item that is a "gap" length before. These gap lengths
-									start large and then decrease every loop until they reach 1, at which point shellsort becomes insertion
+									start large and then decrease every loop until they reach 1, at which point shellsort collapses to insertion
 									sort. Performance is dependent on the choice of gap lengths.
 	                <br><br>
 	                Time complexity:<br>
 	                Worst - O(<i>n</i> log<sub>2</sub><sup>2</sup> <i>n</i>)<br>
-	                Average - dependent on gap sequence<br>
+	                Average - dependent on choice of gap sequence<br>
 	                Best - O(<i>n</i> log <i>n</i>)<br><br>
 	                Space complexity (auxiliary):<br>
-	                All cases - O(1)`
-}
+	                O(1)<br><br>
+	                Stable - no
+	              </p>`
+};
 
 export default ALG_INFO;
