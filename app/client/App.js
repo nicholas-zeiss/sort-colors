@@ -7,4 +7,4 @@ import React from 'react';
 import { render } from 'react-dom';
 
 
-render(<Main/>, document.getElementById('root'));
+render(<Main/>, $('#root')[0]);
