@@ -24,7 +24,7 @@ class Cocktail {
 	//moves cocktail sort forward by one comparison or swap
 	//returns [array data, bool sorted, array colorScheme]
 	tick() {
-		let active = this.index;
+		let active = this.inc == 1 ? this.index : this.index + 1;
 
 		if (this.sorted) {
 			return [this.data, true, [[0, this.data.length, COLORS.green]]];
@@ -40,10 +40,12 @@ class Cocktail {
 			[this.data[this.index], this.data[this.index + 1]] = [this.data[this.index + 1], this.data[this.index]];		
 
 			this.inSwap = false;
-			active = this.index += this.inc;
+			this.index += this.inc;
+			active += this.inc == 1 ? 1 : -1;
 
 		} else if (this.data[this.index] > this.data[this.index + 1]) {
 			this.swapThisLoop = this.inSwap = true;
+			// active += this.inc == -1 ? -1 : 0;
 		
 		} else {
 			this.index += this.inc;

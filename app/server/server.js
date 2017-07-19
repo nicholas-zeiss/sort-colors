@@ -19,6 +19,8 @@ app.get('/', (req, res) => {
 	res.render('index.html');
 });
 
-app.listen(process.env.PORT || 5050, () => {
-	console.log('Server is listening on port ' + process.env.PORT || '5050');
+let port = process.env.PORT || 5050;
+
+app.listen(port, () => {
+	console.log('Server is listening on port ', port);
 });

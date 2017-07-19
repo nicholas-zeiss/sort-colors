@@ -1,3 +1,5 @@
+
+
 #app-panel {
 	margin-left: 50px;
 	margin-right: 50px;
@@ -5,84 +7,105 @@
 	border-color: rgba(0,0,0,.4);
 }
 
-#alg-info {
-	padding: 25px 15px 25px 15px;
-	overflow: hidden;
-}
 
-#algorithm {
-	display: inline;
-	margin-top: 0px;
-	margin-bottom: 10px;
-	margin-left: 5px;
-	margin-right: 5px;
-}
-
-#info-popover {
-	margin-bottom: 5px;
-	margin-left: 10px;
-}
-
-#info-popover:focus {
-	outline: 0;
-}
-
-#color-key-well {
-	display: inline;
-	padding: 5px;
-	margin: -4px 0px 0px 0px;
-	border-color: rgba(12,13,14,.4);
-	height: 40px;
-	overflow: hidden;
-}
-
-#color-key {
-	display: inline;
-  margin-top: 3px;
-	margin-right: 5px;
-	margin-bottom: 0px;
-	margin-left: 5px;
-	font-size: 16px;
-	text-shadow: none;
-}
-
-#sort-container {
-	background-color:#1c1e22;
-}
-
-#controls {
-	margin-top: 10px;
-}
-
-#control-dropup > button:focus {
-	outline: 0;
-}
-
-#control-toggle {
-	margin-left: 15px;
-}
-
-#control-toggle > button:focus {
-	outline: 0;
-}
-
-#settings {
-	margin-top: 10px;
-}
-
-#settings-delay {
-	margin-left: auto;
-}
-
-#settings-delay > button:focus {
-	outline: 0;
-}
+	#alg-info {
+		padding: 25px 15px 25px 15px;
+		overflow: hidden;
+	}
 
 
-#settings-items {
-	margin-left: 15px;
-}
+		#algorithm {
+			display: inline;
+			margin-top: 0px;
+			margin-bottom: 10px;
+			margin-left: 5px;
+			margin-right: 5px;
+		}
 
-#settings-items > button:focus {
-	outline: 0;
-}
+
+			#info-popover {
+				margin-bottom: 4px;
+				margin-left: 10px;
+			}
+
+
+			#info-popover:focus {
+				outline: 0;
+			}
+
+
+				#info-glyph {
+					margin-top: 3px;
+				}
+
+
+			#color-key-well {
+				display: inline;
+				padding: 5px;
+				margin: -4px 0px 0px 0px;
+				border-color: rgba(12,13,14,.4);
+				height: 40px;
+				overflow: hidden;
+			}
+
+
+				#color-key {
+					display: inline;
+				  margin-top: 3px;
+					margin-right: 5px;
+					margin-bottom: 0px;
+					margin-left: 5px;
+					font-size: 16px;
+					text-shadow: none;
+				}
+
+
+	#sort-container {
+		background-color:#1c1e22;
+	}
+
+
+		#controls {
+			margin-top: 10px;
+		}
+
+
+			#control-dropup > button:focus {
+				outline: 0;
+			}
+
+
+			#control-toggle {
+				margin-left: 15px;
+			}
+
+
+			#control-toggle > button:focus {
+				outline: 0;
+			}
+
+
+		#settings {
+			margin-top: 10px;
+		}
+
+
+			#settings-delay {
+				margin-left: auto;
+			}
+
+
+			#settings-delay > button:focus {
+				outline: 0;
+			}
+
+
+			#settings-items {
+				margin-left: 15px;
+			}
+
+
+			#settings-items > button:focus {
+				outline: 0;
+			}
+

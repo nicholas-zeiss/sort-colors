@@ -66,8 +66,9 @@ class Main extends React.Component {
 	}
 
 	/**
-	On mount we create a listener for window resizes which triggers the View to receive new dimensions, we also intialze the bootstrap popover
-	that displays information about the algorithm
+	On mount we grab a reference to the div containing our canvas and use it to set the dimensions for canvas.
+	We also create a listener for window resizes which triggers the View to receive new dimensions and intialze
+	the bootstrap popover that displays information about the current algorithm.
 	**/
 	componentDidMount() {
 		window.onresize = () => { 
@@ -81,27 +82,19 @@ class Main extends React.Component {
 			html: true,
 			trigger: 'hover'
 		});
+
+		let canvasDiv = document.getElementById('canvas-container');
+
+		this.setState({
+			canvasHeight: .4 * (canvasDiv.offsetWidth - 100), 
+			canvasWidth: canvasDiv.offsetWidth - 100,
+			canvasDiv: canvasDiv
+		});
 	}
 
 
 	componentDidUpdate() {
 		$('#info-popover').attr('data-content', ALG_INFO[this.state.algorithm]);
-	}
-
-	/**
-	This function is passed as a ref to the div holding View which we need access to to resize the canvas when the window resizes.
-	The funky syntax allows us to have lexical this without having to define it in the constructor or bind it. Binding 
-	a function inline when passing it as a ref caues it to execue on updates and not just mounts. As we setState here such a pattern would 
-	cause an infinite loop of updates.
-	**/
-	updateCanvasDimensions = (row) => {					
-		if (row) {
-			this.setState({
-				canvasHeight: .4 * (row.offsetWidth - 100), 
-				canvasWidth: row.offsetWidth - 100,
-				canvasDiv: row
-			});
-		}
 	}
 
 	/**
@@ -181,6 +174,7 @@ class Main extends React.Component {
 		}
 	}
 
+
 	changeNum(n) {
 		if (this.state.numItemsToSort + n <= 300 && this.state.numItemsToSort + n >= 10) {
 			this.state.sorter.reset(ALGORITHMS[this.state.algorithm], this.state.numItemsToSort + n);
@@ -206,7 +200,7 @@ class Main extends React.Component {
 											className="btn btn-xs btn-info"
 											data-toggle="popover"
 											disabled={this.state.sorting}>
-								<span className='glyphicon glyphicon-info-sign'></span>
+								<span id='info-glyph' className='glyphicon glyphicon-info-sign'></span>
 							</button>
 						</h2>
 						<div className='well pull-right' id='color-key-well'>
@@ -214,7 +208,7 @@ class Main extends React.Component {
 						</div>
 					</div>
 					<div className='panel-body container-fluid' id='sort-container'>
-						<div className='row' ref={this.updateCanvasDimensions}>
+						<div className='row' id='canvas-container'>
 							<View width={this.state.canvasWidth} 
 										height={this.state.canvasHeight} 
 										data={this.state.sorter.data}
