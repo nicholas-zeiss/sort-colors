@@ -67,7 +67,7 @@ class Main extends React.Component {
 
 	/**
 	On mount we grab a reference to the div containing our canvas and use it to set the dimensions for canvas.
-	We also create a listener for window resizes which triggers the View to receive new dimensions and intialze
+	We also create a listener for window resizes which triggers the View to receive new dimensions and intialize
 	the bootstrap popover that displays information about the current algorithm.
 	**/
 	componentDidMount() {
