@@ -157,7 +157,6 @@ class Main extends React.Component {
 							<button
 								className='btn btn-xs btn-info'
 								data-toggle='popover'
-								disabled={ state.sorting }
 								id='info-popover'
 								type='button'
 							>

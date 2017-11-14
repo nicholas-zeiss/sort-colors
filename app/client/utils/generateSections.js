@@ -8,6 +8,8 @@
 import Queue from './Queue';
 
 
+// start and end are inclusive. A non single section has a left section from start (inclusive) to middle (exclusive),
+// and a right section from middle (inclusive) to end (inclusive)
 export default function genSections(start, end, sections = new Queue()) {
 	if (start == end) {
 		sections.push({ single: true, start: start});

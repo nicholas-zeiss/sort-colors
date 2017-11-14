@@ -7,7 +7,7 @@
 
 import Algorithm from './Algorithm';
 
-import { genColorMap, genColorRange, genColorSet } from '../utils/Colors';
+import Colors, { genColorMap, genColorRange, genColorSet } from '../utils/Colors';
 
 
 class Gnome extends Algorithm {
@@ -43,8 +43,8 @@ class Gnome extends Algorithm {
 
 	genColors() {
 		return genColorMap(this.data.length, [
-			genColorRange(0, this.endSorted + 1, 'green'),
-			genColorSet(new Set([ this.index ]), 'red')
+			genColorRange(0, this.endSorted + 1, Colors.green),
+			genColorSet(new Set([ this.index ]), Colors.red)
 		]);
 	}
 }

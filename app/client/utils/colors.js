@@ -28,14 +28,14 @@ export const genColorRange = (start, end, color) => ({
 	type: 'range',
 	start: start,
 	size: end - start,
-	color: Colors[color]
+	color: color
 });
 
 
 export const genColorSet = (points, color) => ({
 	type: 'set',
 	points: points,
-	color: Colors[color]
+	color: color
 });
 
 

@@ -6,7 +6,7 @@
 
 import Algorithm from './Algorithm';
 
-import { genColorMap, genColorRange, genColorSet } from '../utils/Colors';
+import Colors, { genColorMap, genColorRange, genColorSet } from '../utils/Colors';
 
 
 class Cocktail extends Algorithm {
@@ -51,9 +51,9 @@ class Cocktail extends Algorithm {
 
 	genColors() {
 		return genColorMap(this.data.length, [
-			genColorRange(0, this.first + 1, 'green'),
-			genColorRange(this.last, this.data.length, 'green'),
-			genColorSet(new Set([ this.inc == -1 ? this.index + 1 : this.index ]), 'red')
+			genColorRange(0, this.first + 1, Colors.green),
+			genColorRange(this.last, this.data.length, Colors.green),
+			genColorSet(new Set([ this.inc == -1 ? this.index + 1 : this.index ]), Colors.red)
 		]);
 	}
 }

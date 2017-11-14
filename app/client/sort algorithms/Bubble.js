@@ -6,7 +6,7 @@
 
 import Algorithm from './Algorithm';
 
-import { genColorMap, genColorRange, genColorSet } from '../utils/Colors';
+import Colors, { genColorMap, genColorRange, genColorSet } from '../utils/Colors';
 
 
 class Bubble extends Algorithm {
@@ -49,8 +49,8 @@ class Bubble extends Algorithm {
 
 	genColors() {
 		return genColorMap(this.data.length, [
-			genColorRange(this.last, this.data.length, 'green'),
-			genColorSet(new Set([ this.index ]), 'red')
+			genColorRange(this.last, this.data.length, Colors.green),
+			genColorSet(new Set([ this.index ]), Colors.red)
 		]);
 	}
 }

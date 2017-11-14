@@ -1,71 +1,77 @@
 /**
-Here we have the class responsible for implementing shellsort
+ *
+ * Here we have the class responsible for implementing shellsort
+ *
 **/
 
-import COLORS from '../utils/Colors';
+import Algorithm from './Algorithm';
 
-class Shell {
+import Colors, { genColorMap, genColorRange, genColorSet } from '../utils/Colors';
+
+
+class Shell extends Algorithm {
 	constructor(data) {
-		this.data = data;
+		super(data);
 		
-		this.i = this.gap;								//index of where we are in our overall loop through the data
-		this.j = this.gap;								//index we use to jump backwards by gap lengths when we swap items
-		
-		this.temp = this.data[this.i];		//holds the data at this.i, as this it is overwritten when swapping backwards
-				
 		this.runs = [132, 57, 23, 10, 4, 1];
 		this.gap = 301;
 		
 		while(this.gap >= data.length) {
 			this.gap = this.runs.shift();
 		}
-
-		this.sorted = false;
+		
+		this.inSwap = false;
+		this.i = this.gap;										// index of where we are in our overall loop through the data
+		this.j = this.gap;										// index we use to jump backwards by gap lengths when we swap items
 	}
 
-	//moves shellsort forward by one comparison or swap
-	//returns [array data, bool sorted, array colorScheme]
-	tick() {
-		let active = this.j;
 
-		if (this.sorted) {
-			return [this.data, true, [[0, this.data.length - 1, COLORS.green]]];
+	* tick() {
+		let finished = false;
 
-		} else if (this.j >= this.gap && this.data[this.j - this.gap] > this.temp) {		//make swap between data[j] and data[j-gap], continue backwards
-			this.data[this.j] = this.data[this.j -= this.gap];
+		while (!finished) {
+			if (this.inSwap) {
+				this.swap(this.j - this.gap, this.j);
+				this.j -= this.gap;
+				this.inSwap = false;
 
-		} else if (this.i < this.data.length) {
-			if (this.temp) {				
-				if (this.i != this.j) {										    //if i and j differ then temp was overwritten by swapping and must be put back in place
-					this.data[this.j] = this.temp;
-				}
-				
-				this.j = 0, this.temp = null, this.i++;				//j set to 0 only for the purpose of bypassing the first else if statement next tick
+			} else if (this.j >= this.gap && this.data[this.j - this.gap] > this.data[this.j]) {
+				this.inSwap = true;
+
+			} else if (this.i < this.data.length) {
+				this.j = ++this.i;	
+
+			} else if (this.runs.length) {
+				this.j = this.i = this.gap = this.runs.shift();
 
 			} else {
-				this.temp = this.data[this.i];
-				active = this.j = this.i;	
+				finished = true;
 			}
-		} else if (this.runs.length) {
-			active = this.i = this.gap = this.runs.shift();
 
-		} else {
-			this.sorted = true;
+			yield({ colors: this.genColors(), data: this.data });
 		}
-
-		let colors = [[active, active, COLORS.red]];
 		
-		//this loop sets every run of items to a shade of blue that becomes more and more white the farther back from this.i you are
-		for (let i = this.gap * Math.floor(this.i / this.gap), l = 50; i >= 0; i -= this.gap, l *= .7) {
-			colors = colors.concat([[i, i + this.gap - 1, `hsl(235, 60%, ${Math.floor(100 - l)}%)`]]);
+		return this.finish();
+	}
+
+
+	genColors() {
+		// number of runs of length this.gap from 0 to this.i
+		const numRuns = Math.floor(this.i / this.gap);
+		const runColors = [];
+
+		for (let i = this.gap * numRuns, lum = 50; i >= 0; i -= this.gap, lum *= .7) {
+			runColors.push(genColorRange(i, i + this.gap, `hsl(235, 60%, ${Math.floor(100 - lum)}%)`));
 		}
 
-		return [
-			this.data,
-			this.sorted,
-			colors
-		];
+		return genColorMap(this.data.length, [
+			genColorRange(this.last, this.data.length, Colors.green),
+			...runColors,
+			genColorSet(new Set([ this.j ]), Colors.red)
+		]);
 	}
 }
 
+
 export default Shell;
+

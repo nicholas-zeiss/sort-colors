@@ -6,7 +6,7 @@
 
 import Algorithm from './Algorithm';
 
-import { genColorMap, genColorRange, genColorSet } from '../utils/Colors';
+import Colors, { genColorMap, genColorRange, genColorSet } from '../utils/Colors';
 
 
 class Selection extends Algorithm {
@@ -54,9 +54,9 @@ class Selection extends Algorithm {
 
 	genColors() {
 		return genColorMap(this.data.length, [
-			genColorRange(0, this.unsorted, 'green'),
-			genColorSet(new Set([ this.minIndex ]), 'orange'),
-			genColorSet(new Set([ this.index ]), 'red')
+			genColorRange(0, this.unsorted, Colors.green),
+			genColorSet(new Set([ this.minIndex ]), Colors.orange),
+			genColorSet(new Set([ this.index ]), Colors.red)
 		]);
 	}
 }
