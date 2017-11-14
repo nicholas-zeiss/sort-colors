@@ -41,7 +41,7 @@ class SortController {
 	tick() {
 		if (this.sorted) return;
 		const tick = this.sortModel.next();
-		console.log(tick);
+
 		const values = { 
 			colors: tick.value.colors,
 			data: tick.value.data,

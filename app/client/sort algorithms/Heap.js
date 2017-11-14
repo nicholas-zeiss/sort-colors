@@ -1,121 +1,131 @@
 /**
-Here we have the class responsible for implementing heapsort. We have a helper function siftHeap to build/rebuild the heap from the bottom up.
+ *
+ *	Here we have the class responsible for implementing heapsort. We implement this with a binary max heap. The general structure is that we first
+ *	build the heap from the bottom up. Then swap the root (largest item) with the last item in the heap, now considering the heap to be one node smaller
+ *	and all items after the heap to be sorted, and rebuild the heap from the top down. We then repeat swapping and rebuilding until the heap is exhausted.
+ *
 **/
 
-import COLORS from '../utils/Colors';
-import { siftHeap, parentNode, leftChild, rightChild, allChildren } from '../utils/heapUtils';
+import Algorithm from './Algorithm';
+
+import { genColorMap, genColorRange, genColorSet } from '../utils/Colors';
+import { allChildren, leftChild, parentNode, rightChild, siftHeap } from '../utils/heapUtils';
 
 
-class Heap {
+class Heap extends Algorithm {
 	constructor(data) {
-		this.data = data;
+		super(data);
 		
-		this.index = data.length - 1;
-		
-		this.builtHeap = false;
+		this.active = data.length - 1;									// item we are currently examining for color map
+		this.builtHeap = false;													// whether we completed inital build of heap
 		this.buildStart = parentNode(data.length - 1);
-		this.heapEnd = data.length - 1;
-		
+		this.heapEnd = data.length - 1;									// heap is contained in this.data from index 0 to this index
 		this.sifting = false;
-		this.siftStart = data.length - 1;
-		
-		this.sorted = false;
-				
-		this.toSwap = null;
-		
-		this.validHeap = new Set(); //holds the indices of the heap that are valid, used to render them blue in View component
+		this.siftStart = data.length - 1;	
+		this.toSwap = null;															// [ i, j, bool rebuild ] swap i and j, and rebuild the heap from bottom up if needed
+		this.validHeap = new Set();											// track which nodes in the heap are known to be valid for our color map
 	}
 
-	//moves heapsort forward by one comparison or swap
-	//returns [array data, bool sorted, array colorScheme]
-	tick() {
-		if (this.sorted) {
-			return [this.data, true, [[0, this.data.length, COLORS.green]]];
-		} else if (this.toSwap) {
-			this.makeSwap();
-		} else if (this.sifting) {
-			this.sift();
-		} else if (!this.builtHeap) {
-			this.buildHeap();
-		} else if (this.heapEnd > 0) {
-			this.swapFirstLast();
-		} else {
-			this.sorted = true;
+
+	* tick() {
+		let finished = false;
+
+		while (!finished) {
+			if (this.toSwap) {
+				this.active = this.toSwap[1];
+				this.validHeap.add(this.active);
+				this.makeSwap();
+
+			} else if (this.sifting) {
+				this.active = this.siftingStart;
+				this.validHeap.add(this.active);
+				this.sifting = this.sift();
+
+				if (this.sifting) {
+					this.toSwap = [ this.active, this.siftingStart ];
+				}
+
+			} else if (!this.builtHeap) {
+				this.active = this.buildStart;
+				this.builtHeap = this.buildHeap();
+
+			} else if (this.heapEnd > 0) {
+				this.active = 0;
+				this.toSwap = [ 0, this.heapEnd, true ];
+
+			} else {
+				finished = true;
+			}
+
+			yield({ colors: this.genColors(), data: this.data });
 		}
-		
-		//red for active, yellow for valid parts of heap, green for sorted
-		//invalid parts of heap will be rendered cyan in the View component by use of this.validHeap
-		return [
-			this.data,
-			this.sorted,
-			[
-				[this.index, this.index, COLORS.red],
-				[0, this.heapEnd, COLORS.yellow],
-				[this.heapEnd + 1, this.data.length - 1, COLORS.green]
-			]
-		];
+
+		return this.finish();
+	}
+
+	
+	// swap two items, if this.toSwap[2] is true that means we just swapped the root and last
+	// item of the heap, and must rebuild the heap from the top down
+	makeSwap() {
+		this.swap(this.toSwap[0], this.toSwap[1]);
+
+		if (this.toSwap[2]) {
+			this.heapEnd--;	
+			this.sifting = true;
+			this.siftingStart = 0;
+			this.validHeap.clear();
+		}
+
+		this.toSwap = null;
 	}
 
 
+	// Rebuilds the heap from the top down. Returns true if heap needs to be sifted again or false if done sifting.
 	sift() {		
-		this.validHeap.add(this.siftingStart);
-		this.index = this.siftingStart;
-		
 		this.siftingStart = siftHeap(this.data, this.siftingStart, this.heapEnd);
 
-		this.sifting = this.index != this.siftingStart;
-		this.toSwap = this.sifting ? [this.index, this.siftingStart] : null;
+		this.updateValidHeap(leftChild(this.active));
+		this.updateValidHeap(rightChild(this.active));
 
-		this.updateValidHeap(leftChild(this.index));
-		this.updateValidHeap(rightChild(this.index));
+		return this.active != this.siftingStart;
 	}
 
 
+	// Responsible for the beginning portion of the algorithm where we turn the unsorted array into a binary max heap.
+	// Returns false if not yet done, true if done.
+	buildHeap() {				
+		if (this.buildStart != siftHeap(this.data, this.buildStart, this.heapEnd)) {
+			this.sifting = true;
+			this.siftingStart = this.buildStart;
+		}
+		
+		return --this.buildStart == -1;
+	}
+
+
+	// If siftingStart, root of the section of the heap we must rebuild, is equal to child all children are invalid.
+	// If not, all children are valid.
 	updateValidHeap(child) {
 		if (child <= this.heapEnd) {			  
 			if (this.siftingStart == child) {
-				//if siftingStart, root of the section of the heap we must rebuild, is equal to child
-				//we must mark all the children of child as invalid	  
 				allChildren(child, this.heapEnd).forEach(i => this.validHeap.delete(i));
 			} else {
-				//if not, all children of child are valid and we mark them as such
 				allChildren(child, this.heapEnd).forEach(i => this.validHeap.add(i));
 			}
 		}
 	}
 
 
-	buildHeap() {
-		this.index = this.buildStart;
-				
-		if (this.buildStart != siftHeap(this.data, this.buildStart, this.heapEnd)) {
-			this.sifting = true;
-			this.siftingStart = this.buildStart;
-		}
-		
-		this.builtHeap = --this.buildStart == -1;
-	}
-	
-	makeSwap() {
-		this.index = this.toSwap[1], this.validHeap.add(this.index);
-
-		[this.data[this.toSwap[0]], this.data[this.toSwap[1]]] = [this.data[this.toSwap[1]], this.data[this.toSwap[0]]];
-
-		//the only time toSwap holds a third item is when it is created by swapFirstLast,
-		//in which case we need to rebuild the heap on the next tick
-		if (this.toSwap[2]) {
-			this.validHeap.clear();
-			this.siftingStart = 0, this.sifting = true, this.index = this.heapEnd--;	
-		}
-
-		this.toSwap = null;
-	}
-
-
-	swapFirstLast() {
-		this.index = 0;
-		this.toSwap = [0, this.heapEnd, true];
+	genColors() {
+		return genColorMap(this.data.length, [
+			genColorRange(0, this.heapEnd + 1, 'yellow'),
+			genColorRange(this.heapEnd + 1, this.data.length, 'green'),
+			genColorSet(this.validHeap, 'cyan'),
+			genColorSet(new Set([ this.active ]), 'red')
+		]);
 	}
 }
 
+
 export default Heap;
+
