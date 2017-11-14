@@ -4,6 +4,10 @@ This component allows us to choose which sorting algorithm we desire and to play
 
 import React from 'react';
 
+import Algorithms from '../sort algorithms/Algorithms';
+
+const AlgorithmNames = Object.keys(Algorithms);
+
 
 const Controls = (props) => {
 	return (
@@ -12,7 +16,7 @@ const Controls = (props) => {
 				<button type='button' className='btn btn-default'  disabled={props.sorting}>Change Algorithm</button>
 				<button type='button' className='btn btn-default dropdown-toggle' data-toggle='dropdown' disabled={props.sorting}><span className='caret'></span></button>
 				<ul className='dropdown-menu'>
-					{props.algorithms.map(alg => <li key={alg} className={props.currAlg == alg ? 'disabled' : null}><a onClick={props.chooseAlgorithm.bind(null, alg)}>{alg}</a></li>)}
+					{AlgorithmNames.map(alg => <li key={alg} className={props.currAlgorithm == alg ? 'disabled' : null}><a onClick={props.changeAlgorithm.bind(null, alg)}>{alg}</a></li>)}
 				</ul>
 			</div>
 			<div className='btn-group' id='control-toggle'>
