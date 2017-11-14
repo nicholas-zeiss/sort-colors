@@ -1,67 +1,64 @@
 /**
-Here we implement cocktail shaker sort, which is like a bubble sort that goes both ways
+ *
+ *	Here we implement cocktail shaker sort, which is like a bubble sort that goes both ways
+ *
 **/
 
-import COLORS from '../utils/Colors';
+import Algorithm from './Algorithm';
+
+import { genColorMap, genColorRange, genColorSet } from '../utils/Colors';
 
 
-class Cocktail {
+class Cocktail extends Algorithm {
 	constructor(data) {
-		this.data = data;
-		
+		super(data);
+
+		this.first = -1;
+		this.inc = 1;
 		this.index = 0;
-		this.inc = 1;			//increment for index each tick, -1 or 1
-		
-		this.first = 0;
-		this.last = data.length - 1;
-		
-		this.swapThisLoop = false;
-		this.sorted = false;
-		
 		this.inSwap = false;
+		this.last = data.length;
+		this.swapThisLoop = false;
 	}
 
-	//moves cocktail sort forward by one comparison or swap
-	//returns [array data, bool sorted, array colorScheme]
-	tick() {
-		let active = this.inc == 1 ? this.index : this.index + 1;
 
-		if (this.sorted) {
-			return [this.data, true, [[0, this.data.length, COLORS.green]]];
-		
-		} else if (this.index + this.inc == this.last + 1 || this.index + this.inc == this.first - 1) {
-			this.inc == 1 ? this.last-- : this.first++;
-			this.inc *= -1;
+	* tick() {
+		while ((this.index + this.inc != this.last && this.index + this.inc != this.first) || this.swapThisLoop) {			
+			if (this.index + this.inc == this.last || this.index + this.inc == this.first) {
+				this.inc == 1 ? this.last-- : this.first++;
+				this.inc *= -1;
+				this.swapThisLoop = false;
+						
+			} else if (this.inSwap) {
+				this.swap(this.index, this.index + 1);
+				this.inSwap = false;
+				this.index += this.inc;
+
+			} else if (this.data[this.index] > this.data[this.index + 1]) {
+				this.swapThisLoop = true;
+				this.inSwap = true;
 			
-			this.sorted = !this.swapThisLoop;
-			this.swapThisLoop = false;
-					
-		} else if (this.inSwap) {
-			[this.data[this.index], this.data[this.index + 1]] = [this.data[this.index + 1], this.data[this.index]];		
+			} else {
+				this.index += this.inc;
+			}
 
-			this.inSwap = false;
-			this.index += this.inc;
-			active += this.inc == 1 ? 1 : -1;
-
-		} else if (this.data[this.index] > this.data[this.index + 1]) {
-			this.swapThisLoop = this.inSwap = true;
-			// active += this.inc == -1 ? -1 : 0;
-		
-		} else {
-			this.index += this.inc;
+			yield({ colors: this.genColors(), data: this.data });
 		}
 
-		//red for active, green for sorted
-		return [
-			this.data,
-			this.sorted,
-			[
-				[active, active, COLORS.red],
-				[0, this.first - 1, COLORS.green],
-				[this.last + 1, this.data.length - 1, COLORS.green]
-			]
-		];
+		return this.finish();
+	}
+
+
+	genColors() {
+		return genColorMap(this.data.length, [
+			genColorRange(0, this.first + 1, 'green'),
+			genColorRange(this.first + 1, this.last, 'white'),
+			genColorRange(this.last, this.data.length, 'green'),
+			genColorSet(new Set([ this.inc == -1 ? this.index + 1 : this.index ]), 'red')
+		]);
 	}
 }
 
+
 export default Cocktail;
+
