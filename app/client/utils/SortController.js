@@ -5,7 +5,7 @@
  *
 **/
 
-import { genColorMap } from './colors';
+import { genColorMap } from './Colors';
 
 
 // Creates an array of given length with values from 1 to length
