@@ -94,9 +94,9 @@ class Main extends React.Component {
 
 			if (this.state.sortController.sorted) {
 				this.pauseSorting();
+			} else {
+				this.forceUpdate(); 
 			}
-			
-			this.forceUpdate(); 
 		}, this.state.delay);
 	}
 
@@ -130,6 +130,8 @@ class Main extends React.Component {
 		
 		if (this.state.unsorted) {
 			this.setState({ unsorted: false });
+		} else {
+			this.forceUpdate();
 		}
 	}
 	
