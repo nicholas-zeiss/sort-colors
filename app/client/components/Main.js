@@ -100,7 +100,7 @@ class Main extends React.Component {
 	/**
 	Allows us to start and stop sorting, animations and the sort itself is controlled by an interval we create
 	**/
-	toggleSorting() {
+	toggleSorting = () => {
 		if (!this.state.sorting) {
 			let id = setInterval(() => {
 				this.state.sorter.tick();
@@ -224,7 +224,7 @@ class Main extends React.Component {
 													sorted={this.state.sorter.sorted}
 													reset={this.reset.bind(this)} 
 													stepForward={this.stepForward.bind(this)}
-													toggleSorting={this.toggleSorting.bind(this)}/>
+													toggleSorting={this.toggleSorting}/>
 							</div>
 							<div className='col-md-6 text-center'>
 								<Settings delay={this.state.delay} 

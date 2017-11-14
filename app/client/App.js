@@ -1,10 +1,14 @@
 /**
-Here we initialize our appliction and render it to the DOM
+ *
+ *	Here we initialize our appliction and render it to the DOM
+ *
 **/
 
-import Main from './components/Main';
 import React from 'react';
 import { render } from 'react-dom';
 
+import Main from './components/Main';
 
-render(<Main/>, $('#root')[0]);
+
+render(<Main/>, document.getElementById('root'));
+

@@ -1,8 +1,11 @@
 /**
-Descriptions of the algorithms displayed by our popover button rendered in Main
+ *
+ *	Descriptions of the algorithms displayed by our popover button rendered in Main
+ *
 **/
 
-const ALG_INFO = {
+
+export default {
 	'Bubble Sort': `<p>One of the most elementary sorts, bubble sort loops forward through the data and swaps out of order adjacent items.
 		                At the end of each loop the largest item in the unsorted portion is brought to the end of the list. It is rarely
 		                used in practice due to its O(n<sup>2</sup>) worst case time complexity which makes it inefficient for large lists. For smaller lists
@@ -167,4 +170,3 @@ const ALG_INFO = {
 	              </p>`
 };
 
-export default ALG_INFO;
