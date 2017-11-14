@@ -55,6 +55,7 @@ class Settings extends React.Component {
 						className='btn btn-default'
 						disabled={ props.sorting } 
 						onMouseDown={ decDelay }
+						onMouseLeave={ this.stopRepeat }
 						onMouseUp={ this.stopRepeat }
 						type='button'
 					>
@@ -69,6 +70,7 @@ class Settings extends React.Component {
 						className='btn btn-default'
 						disabled={ props.sorting }
 						onMouseDown={ incDelay }
+						onMouseLeave={ this.stopRepeat }
 						onMouseUp={ this.stopRepeat }
 						type='button'
 					>
@@ -81,6 +83,7 @@ class Settings extends React.Component {
 						className='btn btn-default'
 						disabled={ props.sorting }
 						onMouseDown={ decDataSize }
+						onMouseLeave={ this.stopRepeat }
 						onMouseUp={ this.stopRepeat }
 						type='button'
 					>
@@ -95,6 +98,7 @@ class Settings extends React.Component {
 						className='btn btn-default'
 						disabled={ props.sorting }
 						onMouseDown={ incDataSize }
+						onMouseLeave={ this.stopRepeat }
 						onMouseUp={ this.stopRepeat }
 						type='button'
 					>

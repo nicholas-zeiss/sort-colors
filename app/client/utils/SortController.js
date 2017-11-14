@@ -5,7 +5,7 @@
  *
 **/
 
-import Colors from './colors';
+import { genColorMap } from './colors';
 
 
 // Creates an array of given length with values from 1 to length
@@ -25,20 +25,30 @@ const shuffle = length => {
 
 
 class SortController {
-	constructor(sortModel, numItems) {
+	constructor(sortModel, numItems) {		
 		this.data = shuffle(numItems);
-		this.sortModel = new sortModel(this.data);				// sort is the actual sorting model
+		this.sortModel = new sortModel(this.data).tick();
 		this.sorted = false;
-		this.colors = [];
+		this.colors = genColorMap(numItems, [{ 
+			type: 'range',
+			start: 0,
+			size: this.data.length,
+			color: 'white'
+		}]);
 	}
 
 	// moves algorithm forward by one comparison or swap
 	tick() {
-		[ this.data, this.sorted, this.colors ] = this.sortModel.tick();
-		
-		if (this.sorted) {
-			this.colors = [[ 0, this.data.length - 1, Colors.green ]];
-		}
+		if (this.sorted) return;
+		const tick = this.sortModel.next();
+		console.log(tick);
+		const values = { 
+			colors: tick.value.colors,
+			data: tick.value.data,
+			sorted: tick.done
+		};
+
+		Object.assign(this, values);
 	}
 }
 

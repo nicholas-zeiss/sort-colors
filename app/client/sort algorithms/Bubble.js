@@ -1,61 +1,61 @@
 /**
-Here we have the class responsible for implementing bubble sort
+ *
+ *	Here we have the class responsible for implementing bubble sort
+ *
 **/
 
-import COLORS from '../utils/Colors';
+import Algorithm from './Algorithm';
+
+import { genColorMap, genColorRange, genColorSet } from '../utils/Colors';
 
 
-class Bubble {
+class Bubble extends Algorithm {
 	constructor(data) {
-		this.data = data;
-		
-		this.index = 0;
-		this.last = data.length - 1;
-		
-		this.swapThisLoop = false;
-		this.sorted = false;
+		super(data);
 
+		this.index = 0;
 		this.inSwap = false;
+		this.last = data.length;
+		this.swapThisLoop = false;
 	}
 
-	//moves bubble sort forward by one comparison or swap
-	//returns [array data, bool sorted, array colorScheme]
-	tick() {
-		let active = this.index;
 
-		if (this.sorted) {
-			return [this.data, true, [[0, this.data.length, COLORS.green]]];
-		
-		} else if (this.index == this.last) {
-			this.index = 0;
-			this.last--;		
-			
-			this.sorted = !this.swapThisLoop;
-			this.swapThisLoop = false;
-		
-		} else if (this.inSwap) {
-			[this.data[this.index], this.data[this.index + 1]] = [this.data[this.index + 1], this.data[this.index]];
+	* tick() {
+		while (this.index != this.last || this.swapThisLoop) {
+			if (this.index == this.last) {			
+				this.index = 0;
+				this.last--;
+				this.swapThisLoop = false;
 
-			this.inSwap = false;
+			} else if (this.inSwap) {
+				this.swap(this.index - 1, this.index);
+				this.inSwap = false;
 
-			active = ++this.index;
-		} else if (this.data[this.index] > this.data[this.index + 1]) {
-			this.swapThisLoop = this.inSwap = true;
-			
-		} else {
-			this.index++;
+			} else if (this.data[this.index] > this.data[this.index + 1]) {
+				this.swapThisLoop = true;
+				this.inSwap = true;
+				this.index++;
+				
+			} else {
+				this.index++;
+			}
+
+			yield({ colors: this.genColors(), data: this.data });
 		}
 
-		//red for active, green for sorted
-		return [
-			this.data,
-			this.sorted,
-			[
-				[active, active, COLORS.red],
-				[this.last + 1, this.data.length - 1, COLORS.green]
-			]
-		];
+		return this.finish();
+	}
+
+
+	genColors() {
+		return genColorMap(this.data.length, [
+			genColorRange(0, this.last, 'white'),
+			genColorRange(this.last, this.data.length, 'green'),
+			genColorSet(new Set([ this.index ]), 'red')
+		]);
 	}
 }
 
+
 export default Bubble;
+

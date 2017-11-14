@@ -32,8 +32,7 @@ class Main extends React.Component {
 			intervalID: undefined,
 			dataSize: 100,
 			sortController: new SortController(Algorithms['Bubble Sort'], 100),
-			sorting: false,
-			unsorted: true					// whether the data has started being sorted
+			sorting: false
 		};
 
 		this.canvasContainerRef = div => this.canvasContainer = div;
@@ -65,8 +64,7 @@ class Main extends React.Component {
 	changeAlgorithm = alg => {		
 		this.setState({
 			algorithm: alg,
-			sortController: new SortController(Algorithms[alg], this.state.dataSize),
-			unsorted: true
+			sortController: new SortController(Algorithms[alg], this.state.dataSize)
 		});
 	}
 
@@ -115,8 +113,7 @@ class Main extends React.Component {
 		if (!this.state.sorting) {
 			this.setState({
 				intervalID: this.startSorting(),
-				sorting: true,
-				unsorted: false
+				sorting: true
 			});  
 		} else {
 			this.pauseSorting();
@@ -127,12 +124,7 @@ class Main extends React.Component {
 	// move the sorting algorithm forward one swap/comparison
 	stepForward = () => {
 		this.state.sortController.tick();
-		
-		if (this.state.unsorted) {
-			this.setState({ unsorted: false });
-		} else {
-			this.forceUpdate();
-		}
+		this.forceUpdate();
 	}
 	
 
@@ -142,8 +134,7 @@ class Main extends React.Component {
 		this.setState({
 			sortController: new SortController(Algorithms[this.state.algorithm], this.state.dataSize),
 			sorting: false,
-			intervalID: undefined,
-			unsorted: true
+			intervalID: undefined
 		});
 	}
 
