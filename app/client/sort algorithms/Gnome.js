@@ -44,7 +44,6 @@ class Gnome extends Algorithm {
 	genColors() {
 		return genColorMap(this.data.length, [
 			genColorRange(0, this.endSorted + 1, 'green'),
-			genColorRange(this.endSorted + 1, this.data.length, 'white'),
 			genColorSet(new Set([ this.index ]), 'red')
 		]);
 	}

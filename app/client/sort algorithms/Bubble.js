@@ -49,7 +49,6 @@ class Bubble extends Algorithm {
 
 	genColors() {
 		return genColorMap(this.data.length, [
-			genColorRange(0, this.last, 'white'),
 			genColorRange(this.last, this.data.length, 'green'),
 			genColorSet(new Set([ this.index ]), 'red')
 		]);

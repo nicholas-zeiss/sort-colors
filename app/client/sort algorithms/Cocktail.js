@@ -52,7 +52,6 @@ class Cocktail extends Algorithm {
 	genColors() {
 		return genColorMap(this.data.length, [
 			genColorRange(0, this.first + 1, 'green'),
-			genColorRange(this.first + 1, this.last, 'white'),
 			genColorRange(this.last, this.data.length, 'green'),
 			genColorSet(new Set([ this.inc == -1 ? this.index + 1 : this.index ]), 'red')
 		]);
