@@ -52,7 +52,7 @@ class Heap extends Algorithm {
 				finished = true;
 			}
 
-			yield({ colors: this.genColors(), data: this.data });
+			yield({ colors: this.genColors(), data: [ ...this.data ] });
 		}
 
 		return this.finish();

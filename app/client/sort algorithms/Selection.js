@@ -45,7 +45,7 @@ class Selection extends Algorithm {
 				this.index++;
 			}
 
-			yield({ colors: this.genColors(), data: this.data });
+			yield({ colors: this.genColors(), data: [ ...this.data ] });
 		}
 
 		return this.finish();

@@ -28,10 +28,10 @@ class Main extends React.Component {
 			algorithm: 'Bubble Sort',							
 			canvasHeight: 300,
 			canvasWidth: 500,
-			delay: 5,
+			delay: 25,
 			intervalID: undefined,
-			dataSize: 100,
-			sortController: new SortController(Algorithms['Bubble Sort'], 100),
+			dataSize: 50,
+			sortController: new SortController(Algorithms['Bubble Sort'], 50),
 			sorting: false
 		};
 
@@ -42,13 +42,15 @@ class Main extends React.Component {
 	// Grab the dimensions of the div containing our canvas so that we can size the canvas in <View/> appropriately,
 	// and set up a listener to handle those changes on a resize. Setup the bootstrap popover for algorithm info using jQuery.
 	componentDidMount() {
+		$('#info-popover').popover({ html: true, trigger: 'hover' });
+		$('#info-popover').attr('data-content', AlgInfo[this.state.algorithm]);
+		
 		const resizeCanvas = () => this.setState({
 			canvasHeight: .4 * (this.canvasContainer.clientWidth - 100),
 			canvasWidth: this.canvasContainer.clientWidth - 100
 		});
-
+		
 		window.onresize = resizeCanvas;
-		$('#info-popover').popover({ html: true, trigger: 'hover' });
 		resizeCanvas();
 	}
 
@@ -178,7 +180,7 @@ class Main extends React.Component {
 							<View
 								canvasHeight={ state.canvasHeight }
 								canvasWidth={ state.canvasWidth }
-								sortController={ state.sortController }
+								sorter={ state.sortController }
 							/> 
 						</div>
 						

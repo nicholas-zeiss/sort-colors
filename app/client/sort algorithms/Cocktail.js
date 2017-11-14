@@ -42,7 +42,7 @@ class Cocktail extends Algorithm {
 				this.index += this.inc;
 			}
 
-			yield({ colors: this.genColors(), data: this.data });
+			yield({ colors: this.genColors(), data: [ ...this.data ] });
 		}
 
 		return this.finish();

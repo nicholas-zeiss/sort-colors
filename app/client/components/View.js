@@ -17,24 +17,20 @@ class View extends React.Component {
 
 
 	componentDidUpdate() {
-		const ctx = this.context;
-		const colors = this.props.sortController.colors;
-		const data = this.props.sortController.data;
+		const sorter = this.props.sorter;
 		const canvasHeight = this.props.canvasHeight;
 		const canvasWidth = this.props.canvasWidth;
-		const columnWidth = canvasWidth / data.length;
+		const columnWidth = canvasWidth / sorter.data.length;
 
-		ctx.fillStyle = Colors.background;																		
-		ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+		this.context.fillStyle = Colors.background;																		
+		this.context.fillRect(0, 0, canvasWidth, canvasHeight);
 		
-		for (let i = 0; i < data.length; i++) {
-			ctx.fillStyle = colors[i];
-
+		for (let i = 0; i < sorter.data.length; i++) {
 			// data.length is equal to the largest item's value
-			const columnHeight = (1 - data[i] / data.length) * canvasHeight;
+			const columnHeight = (1 - sorter.data[i] / sorter.data.length) * canvasHeight;
 
-
-			ctx.fillRect(i * columnWidth, columnHeight, columnWidth - 2, canvasHeight);
+			this.context.fillStyle = sorter.colors[i];
+			this.context.fillRect(i * columnWidth, columnHeight, columnWidth - 2, canvasHeight);
 		}
 	}
 

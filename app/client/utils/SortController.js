@@ -25,9 +25,8 @@ const shuffle = length => {
 
 
 class SortController {
-	constructor(sortModel, numItems) {		
-		this.data = shuffle(numItems);
-		this.sortModel = new sortModel(this.data).tick();
+	constructor(algorithm, numItems, data = shuffle(numItems)) {
+		this.data = data;
 		this.sorted = false;
 		this.colors = genColorMap(numItems, [{ 
 			type: 'range',
@@ -35,20 +34,25 @@ class SortController {
 			size: this.data.length,
 			color: 'white'
 		}]);
+
+		// In rare cases you may need to access the actual algorithm instance this class wraps (eg introsort), and it can be accessed
+		// as the sortInstance property. However, this should be avoided whenever possible to avoid accidental mutation of the algorithm
+		// instance. Instead rely on the tick method.
+		this.sortInstance = new algorithm([ ...this.data ]);
+		this.sortModel = this.sortInstance.tick();
 	}
 
 	// moves algorithm forward by one comparison or swap
 	tick() {
-		if (this.sorted) return;
+		if (this.sorted) {
+			return;
+		}
+
 		const tick = this.sortModel.next();
-
-		const values = { 
-			colors: tick.value.colors,
-			data: tick.value.data,
-			sorted: tick.done
-		};
-
-		Object.assign(this, values);
+			
+		this.colors = tick.value.colors.slice();
+		this.data = tick.value.data.slice();
+		this.sorted = tick.done;
 	}
 }
 

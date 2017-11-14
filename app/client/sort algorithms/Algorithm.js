@@ -18,7 +18,7 @@ class Algorithm {
 
 	finish() {
 		return {
-			data: this.data,
+			data: this.data.slice(),
 			colors: genColorMap(
 				this.data.length,
 				[ genColorRange(0, this.data.length, Colors.green) ]

@@ -36,7 +36,7 @@ class Insertion extends Algorithm {
 				this.endSorted = Math.max(this.index++, this.endSorted);
 			}
 
-			yield({ colors: this.genColors(), data: this.data });
+			yield({ colors: this.genColors(), data: [ ...this.data ] });
 		}
 		
 		return this.finish();

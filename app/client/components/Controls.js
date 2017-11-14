@@ -49,6 +49,7 @@ const Controls = props => {
 					className='btn btn-success'
 					disabled={ props.sorted }
 					onClick={ props.toggleSorting }
+					title={ props.sorting ? 'Pause' : 'Play' }
 					type='button'
 				>
 					{ props.sorting ? <span className='glyphicon glyphicon-pause'></span> : <span className='glyphicon glyphicon-play'></span> }
@@ -58,6 +59,7 @@ const Controls = props => {
 					className='btn btn-success'
 					disabled={ props.sorting || props.sorted }
 					onClick={ props.stepForward }
+					title='Step Forward'
 					type='button'
 				>
 					<span className='glyphicon glyphicon-step-forward'></span>
@@ -67,6 +69,7 @@ const Controls = props => {
 					className='btn btn-danger'
 					disabled={ props.sorting }
 					onClick={ props.reset }
+					title='Reset'
 					type='button'
 				>
 					<span className='glyphicon glyphicon-refresh'></span>
