@@ -3,7 +3,7 @@ Here we have the class responsible for implementing gnome sort. Almost identical
 it proceeds through all the sorted elements greater to reach the unsorted section, whereas insertion sort simply jumps to the unsorted section.
 **/
 
-import COLORS from '../utils/colors';
+import COLORS from '../utils/Colors';
 
 
 class Gnome {

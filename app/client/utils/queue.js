@@ -1,11 +1,15 @@
+
 /**
-Here we create a class for a standard queue. We use queues to hold the sections of the data
-that need to be sorted in merge sort and quicksort.
+ *
+ *	Here we create a class for a standard queue. We use queues to hold the sections of the data
+ *	that need to be sorted in merge sort and quicksort.
+ *
 **/
 
+
 class Queue {
-	constructor(...data) {
-		this.storage = [...data];
+	constructor(data = []) {
+		this.storage = data;
 		this.first = 0;
 		this.end = this.storage.length ? this.storage.length - 1 : -1;
 	}
@@ -19,14 +23,14 @@ class Queue {
 	}
 
 	pop() {
-		let res = null;
+		let item = null;
 
 		if (this.first <= this.end) {
-			res = this.storage[this.first];
+			item = this.storage[this.first];
 			delete this.storage[this.first++];
 		}
 
-		return res;
+		return item;
 	}
 
 	clear() {
@@ -36,4 +40,6 @@ class Queue {
 	}
 }
 
+
 export default Queue;
+

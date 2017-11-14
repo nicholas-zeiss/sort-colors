@@ -2,7 +2,7 @@
 Here we have the class responsible for implementing bubble sort
 **/
 
-import COLORS from '../utils/colors';
+import COLORS from '../utils/Colors';
 
 
 class Bubble {

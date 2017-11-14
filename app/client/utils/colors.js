@@ -1,4 +1,11 @@
-const COLORS = {
+/**
+ *
+ *	Appwide settings of the various colors we use
+ *
+**/
+
+
+export default {
 	background: '#1c1e22',
 	blue: '#3340cc',
 	lighterBlue: '#7079db',
@@ -13,4 +20,3 @@ const COLORS = {
 	yellow: '#f2f22b'
 };
 
-export default COLORS;

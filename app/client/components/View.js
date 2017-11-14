@@ -4,7 +4,7 @@ This component displays the data we are sorting using a canvas element
 
 import React from 'react';
 
-import COLORS from '../utils/colors';
+import COLORS from '../utils/Colors';
 
 class View extends React.Component {
 	constructor(props) {

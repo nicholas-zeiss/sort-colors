@@ -2,7 +2,7 @@
 This is our top level component which contains all subcomponents. It is the view component of our MVC and linkes the user interface to the controller, which is an
 instance of the Sorter class held in this component's state. The subcomponents it contains are View, Controller, and Settings. View renders the data being sorted
 to a canvas. Controller allows the user to change algorithms, pause/play, step forward, and reset the sorter. Settings allows the user to change the number of items
-to be sorted and to change the delay between the ticks of the sorter.
+to be sorted and to change the delay between the ticks of the Sorter.
 **/
 
 import React from 'react';
@@ -22,10 +22,10 @@ import Quick from '../sort algorithms/Quick';
 import Selection from '../sort algorithms/Selection';
 import Shell from '../sort algorithms/Shell';
 
-import Sorter from '../utils/Sorter';
+import SortController from '../utils/SortController';
 
-import ALG_INFO from '../utils/algInfo';
-import COLOR_KEY from '../utils/colorKey';
+import AlgInfo from '../utils/AlgInfo';
+import ColorKeys from '../utils/ColorKeys';
 
 
 const ALGORITHMS = {
@@ -60,7 +60,7 @@ class Main extends React.Component {
 			delay: 20,
 			
 			algorithm: 'Bubble Sort',							
-			sorter: new Sorter(Bubble, 100),
+			sortController: new SortController(Bubble, 100),
 			intervalID: undefined
 		};
 	}
@@ -94,7 +94,7 @@ class Main extends React.Component {
 
 
 	componentDidUpdate() {
-		$('#info-popover').attr('data-content', ALG_INFO[this.state.algorithm]);
+		$('#info-popover').attr('data-content', AlgInfo[this.state.algorithm]);
 	}
 
 	/**
@@ -103,9 +103,9 @@ class Main extends React.Component {
 	toggleSorting = () => {
 		if (!this.state.sorting) {
 			let id = setInterval(() => {
-				this.state.sorter.tick();
+				this.state.sortController.tick();
 
-				if (this.state.sorter.sorted) {
+				if (this.state.sortController.sorted) {
 					this.pauseSorting();
 				}
 				
@@ -124,7 +124,7 @@ class Main extends React.Component {
 
 
 	stepForward() {
-		this.state.sorter.tick();
+		this.state.sortController.tick();
 		
 		this.setState({
 			unsorted: false
@@ -143,25 +143,22 @@ class Main extends React.Component {
 	
 
 	reset() {
-			clearInterval(this.state.intervalID);
-			
-			this.state.sorter.reset(ALGORITHMS[this.state.algorithm], this.state.numItemsToSort);
-
-			this.setState({
-				sorting: false,
-				intervalID: undefined,
-				unsorted: true
-			});
+		clearInterval(this.state.intervalID);
 		
+		this.setState({
+			sortController: new SortController(ALGORITHMS[this.state.algorithm], this.state.numItemsToSort),
+			sorting: false,
+			intervalID: undefined,
+			unsorted: true
+		});
 	}
 
 
-	chooseAlgorithm(alg) {
-		this.state.sorter.reset(ALGORITHMS[alg], this.state.numItemsToSort);
-		
+	chooseAlgorithm(alg) {		
 		this.setState({
 			algorithm: alg,
-		  unsorted: true
+			sortController: new SortController(ALGORITHMS[alg], this.state.numItemsToSort),
+			unsorted: true
 		});
 	}
 
@@ -177,10 +174,9 @@ class Main extends React.Component {
 
 	changeNum(n) {
 		if (this.state.numItemsToSort + n <= 300 && this.state.numItemsToSort + n >= 10) {
-			this.state.sorter.reset(ALGORITHMS[this.state.algorithm], this.state.numItemsToSort + n);
-
 			this.setState({
-				numItemsToSort: this.state.numItemsToSort + n
+				numItemsToSort: this.state.numItemsToSort + n,
+				sortController: new SortController(ALGORITHMS[this.state.algorithm], this.state.numItemsToSort + n)
 			});	
 		}
 	}
@@ -196,7 +192,7 @@ class Main extends React.Component {
 					<div className='panel-heading' id='alg-info'>
 						<h2 id='algorithm'>{this.state.algorithm}
 							<button id='info-popover'
-							        type="button"
+											type="button"
 											className="btn btn-xs btn-info"
 											data-toggle="popover"
 											disabled={this.state.sorting}>
@@ -204,16 +200,16 @@ class Main extends React.Component {
 							</button>
 						</h2>
 						<div className='well pull-right' id='color-key-well'>
-							{COLOR_KEY[this.state.algorithm]}
+							{ColorKeys[this.state.algorithm]}
 						</div>
 					</div>
 					<div className='panel-body container-fluid' id='sort-container'>
 						<div className='row' id='canvas-container'>
 							<View width={this.state.canvasWidth} 
 										height={this.state.canvasHeight} 
-										data={this.state.sorter.data}
-										colors={this.state.sorter.colors}
-										validHeap={this.state.sorter.sort.validHeap && !this.state.sorter.sorted ? this.state.sorter.sort.validHeap : null}/> 
+										data={this.state.sortController.data}
+										colors={this.state.sortController.colors}
+										validHeap={this.state.sortController.sortModel.validHeap && !this.state.sortController.sorted ? this.state.sortController.sortModel.validHeap : null}/> 
 						</div>
 						<div className='row'>
 							<div className='col-md-6 text-center'>
@@ -221,7 +217,7 @@ class Main extends React.Component {
 													currAlg={this.state.algorithm}
 													chooseAlgorithm={this.chooseAlgorithm.bind(this)}
 													sorting={this.state.sorting} 
-													sorted={this.state.sorter.sorted}
+													sorted={this.state.sortController.sorted}
 													reset={this.reset.bind(this)} 
 													stepForward={this.stepForward.bind(this)}
 													toggleSorting={this.toggleSorting}/>

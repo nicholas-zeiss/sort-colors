@@ -6,18 +6,18 @@
 
 import React from 'react';
 
-import COLORS from './colors';
+import Colors from './Colors';
 
 
 const expandKey = colors => (
 	<h4 className='pull-right' id='color-key'>
-		<span style={{ color: COLORS.white }}> Color key:&nbsp;&nbsp; </span>
-		<span style={{ color: COLORS.red }}> active </span>
+		<span style={{ color: Colors.white }}> Color key:&nbsp;&nbsp; </span>
+		<span style={{ color: Colors.red }}> active </span>
 		{ 
 			colors.map(key => (
 				<span key={ key.color }>
-					<span style={{ fontSize: '18px', color: COLORS.white }}> &nbsp;|&nbsp; </span>
-					<span style={{ color: COLORS[key.color] }}>{ key.description }</span>
+					<span style={{ fontSize: '18px', color: Colors.white }}> &nbsp;|&nbsp; </span>
+					<span style={{ color: Colors[key.color] }}>{ key.description }</span>
 				</span>
 			))
 		}

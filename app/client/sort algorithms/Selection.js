@@ -2,7 +2,7 @@
 Here we have the class responsible for implementing selection sort
 **/
 
-import COLORS from '../utils/colors';
+import COLORS from '../utils/Colors';
 
 
 class Selection {

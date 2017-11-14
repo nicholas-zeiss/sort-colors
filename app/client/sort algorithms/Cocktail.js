@@ -2,7 +2,7 @@
 Here we implement cocktail shaker sort, which is like a bubble sort that goes both ways
 **/
 
-import COLORS from '../utils/colors';
+import COLORS from '../utils/Colors';
 
 
 class Cocktail {

@@ -2,8 +2,8 @@
 Here we have the class responsible for implementing heapsort. We have a helper function siftHeap to build/rebuild the heap from the bottom up.
 **/
 
-import COLORS from '../utils/colors';
-import {siftHeap, parentNode, leftChild, rightChild, allChildren} from '../utils/heapUtils';
+import COLORS from '../utils/Colors';
+import { siftHeap, parentNode, leftChild, rightChild, allChildren } from '../utils/heapUtils';
 
 
 class Heap {

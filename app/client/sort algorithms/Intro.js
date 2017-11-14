@@ -5,7 +5,7 @@ Here we have the class responsible for implementing introsort, a hybrid between 
 import Heap from './Heap';
 import Quick from './Quick';
 
-import COLORS from '../utils/colors';
+import COLORS from '../utils/Colors';
 
 
 class Intro {

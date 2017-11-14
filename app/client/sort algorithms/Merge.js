@@ -4,9 +4,9 @@ is not actually recursive. Instead, when the object is being constructed we use 
 helper function which gives us the sections to sort and merge in an order that is identical to a true recursive top down approach.
 **/
 
-import COLORS from '../utils/colors';
+import COLORS from '../utils/Colors';
 import generateSections from '../utils/generateSections';
-import Queue from '../utils/queue';
+import Queue from '../utils/Queue';
 
 
 class Merge {
@@ -20,7 +20,7 @@ class Merge {
 		this.left = null;
 		this.right = null;
 		
-		this.sections = generateSections(data.length);
+		this.sections = generateSections(0, data.length - 1);
 		this.currSection = null;
 
 		this.sorted = false;
@@ -82,8 +82,8 @@ class Merge {
 		this.currSection = this.sections.pop();
 
 		if (this.currSection.length > 1) {
-			this.left = new Queue(...this.data.slice(this.currSection[0], this.currSection[1]));
-			this.right = new Queue(...this.data.slice(this.currSection[1], this.currSection[2]));
+			this.left = new Queue(this.data.slice(this.currSection[0], this.currSection[1]));
+			this.right = new Queue(this.data.slice(this.currSection[1], this.currSection[2]));
 			this.merging = true;
 		}
 		

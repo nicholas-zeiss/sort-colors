@@ -1,17 +1,25 @@
 /**
-Here we have helper functions for the Heap class.
+ *
+ *	Here we have helper functions for the Heap class which are useful for manipulating the heap portion of our array.
+ *
 **/
 
-// siftHeap helps rebuild the heap starting at root. Each call either finds that the root is in 
-// the appropriate place in the heap, or if not, that the root must be swapped with its greatest child.
-// In the latter case we must move onto the portion of the heap starting at that child.
-//
-// siftHeap takes an array with a heap from indices start to end, inclusive. It returns either the root index if 
-// no swap is needed or the index to swap to otherwise.
-// 
-// n.b. this function does not actually alter the array it is passed. Those changes are made in Heap.
-function siftHeap(arr, root, end) {
-	let swap = root, left = leftChild(root), right = rightChild(root);
+
+// These three functions help us find the indices of connected nodes in the heap
+export const leftChild = i => 2 * i + 1;
+
+export const parentNode = i => Math.floor((i - 1) / 2);
+
+export const rightChild = i => 2 * i + 2;
+
+
+// siftHeap helps rebuild the heap stored in array arr between indices root and end (inclusive).
+// If the root is greater than its children siftHeap returns the index of the smaller child
+// with which the root will be swapped. Otherwise, it returns the index of the root.
+export const siftHeap = (arr, root, end) => {
+	let swap = root;
+	const left = leftChild(root);
+	const right = rightChild(root);
 	
 	if (left > end) {
 		return root;
@@ -26,43 +34,32 @@ function siftHeap(arr, root, end) {
 	}
 
 	return swap;
-}
+};
 
 
-function parentNode(i) {
-	return Math.floor((i - 1) / 2);
-}
-
-
-function leftChild(i) {
-	return 2 * i + 1;
-}
-
-
-function rightChild(i) {
-	return 2 * i + 2;
-}
-
-//returns an array of the indices of all nodes below the node at i, including i itself
-function allChildren(i, end) {
-	let res = [i], stack = [i];
+// Returns an array of all children, grandchildren, etc of node i (including i)
+// where the last node in the heap is at index end.
+export const allChildren = (i, end) => {
+	const res = [ i ];
+	const stack = [ i ];
 
 	while (stack.length) {
 		i = stack.pop();
 
-		if (leftChild(i) <= end) {
-			stack.push(leftChild(i));
-			res.push(leftChild(i));
+		const left = leftChild(i);
+		const right = rightChild(i);
+
+		if (left <= end) {
+			stack.push(left);
+			res.push(left);
 		}
 
-		if (rightChild(i) <= end) {
-			stack.push(rightChild(i));
-			res.push(rightChild(i));
+		if (right <= end) {
+			stack.push(right);
+			res.push(right);
 		}
 	}
 
 	return res;
-}
+};
 
-
-export {siftHeap, parentNode, leftChild, rightChild, allChildren};

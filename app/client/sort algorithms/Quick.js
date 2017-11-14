@@ -4,7 +4,7 @@ As we must proceed tick by tick this algorithm is not actually recursive but ins
 stored in this.sections, which is used as a stack.
 **/
 
-import COLORS from '../utils/colors';
+import COLORS from '../utils/Colors';
 
 
 class Quick {

@@ -2,7 +2,7 @@
 Here we have the class responsible for implementing shellsort
 **/
 
-import COLORS from '../utils/colors';
+import COLORS from '../utils/Colors';
 
 class Shell {
 	constructor(data) {
