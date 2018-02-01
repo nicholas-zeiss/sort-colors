@@ -16,7 +16,7 @@ export default {
 			Worst - O(n<sup>2</sup>)<br>
 			Average - O(n<sup>2</sup>)<br>
 			Best - O(n)<br><br>
-			Space complexity (auxiliary):<br>
+			Space complexity:<br>
 			O(1)<br><br>
 			Stable - yes
 		</p>`
@@ -31,7 +31,7 @@ export default {
 			Worst - O(n<sup>2</sup>)<br>
 			Average - O(n<sup>2</sup>)<br>
 			Best - O(n)<br><br>
-			Space complexity (auxiliary):<br>
+			Space complexity:<br>
 			O(1)<br><br>
 			Stable - yes
 		</p>`
@@ -46,7 +46,7 @@ export default {
 			Worst - O(n<sup>2</sup>)<br>
 			Average - O(n<sup>2</sup>)<br>
 			Best - O(n)<br><br>
-			Space complexity (auxiliary):<br>
+			Space complexity:<br>
 			O(1)<br><br>
 			Stable - yes
 		</p>`
@@ -64,7 +64,7 @@ export default {
 			Worst - O(<i>n</i> log <i>n</i>)<br>
 			Average - O(<i>n</i> log <i>n</i>)<br>
 			Best - O(<i>n</i> log <i>n</i>)<br><br>
-			Space complexity (auxiliary):<br>
+			Space complexity:<br>
 			O(1)<br><br>
 			Stable - no
 		</p>`
@@ -84,7 +84,7 @@ export default {
 			Worst - O(n<sup>2</sup>)<br>
 			Average - O(n<sup>2</sup>)<br>
 			Best - O(n)<br><br>
-			Space complexity (auxiliary):<br>
+			Space complexity:<br>
 			O(1)<br><br>
 			Stable - yes
 		</p>`
@@ -99,8 +99,8 @@ export default {
 			Worst - O(<i>n</i> log <i>n</i>)<br>
 			Average - O(<i>n</i> log <i>n</i>)<br>
 			Best - O(<i>n</i> log <i>n</i>)<br><br>
-			Space complexity (auxiliary):<br>
-			O(1)<br><br>
+			Space complexity:<br>
+			O(log <i>n</i>)<br><br>
 			Stable - no
 		</p>`
 	),
@@ -118,7 +118,7 @@ export default {
 			Worst - O(<i>n</i> log <i>n</i>)<br>
 			Average - O(<i>n</i> log <i>n</i>)<br>
 			Best - O(<i>n</i> log <i>n</i>)<br><br>
-			Space complexity (auxiliary):<br>
+			Space complexity:<br>
 			O(n)<br><br>
 			Stable - usually yes, depends on implementation
 		</p>`
@@ -135,8 +135,8 @@ export default {
 			Worst - O(n<sup>2</sup>)<br>
 			Average - O(<i>n</i> log <i>n</i>)<br>
 			Best - O(<i>n</i> log <i>n</i>)<br><br>
-			Space complexity (auxiliary):<br>
-			O(1)<br><br>
+			Space complexity:<br>
+			O(n)<br><br>
 			Stable - no
 		</p>`
 	),
@@ -151,9 +151,9 @@ export default {
 			Worst - O(n<sup>2</sup>)<br>
 			Average - O(n<sup>2</sup>)<br>
 			Best - O(n<sup>2</sup>)<br><br>
-			Space complexity (auxiliary):<br>
+			Space complexity:<br>
 			O(1)<br><br>
-			Stable - yes
+			Stable - no
 		</p>`
 	),
 	'Shellsort': (
@@ -164,10 +164,10 @@ export default {
 			sort. Performance is dependent on the choice of gap lengths.
 			<br><br>
 			Time complexity:<br>
-			Worst - O(<i>n</i> log<sub>2</sub><sup>2</sup> <i>n</i>)<br>
+			Worst - O(<i>n</i> log <i>n</i>)<br>
 			Average - dependent on choice of gap sequence<br>
 			Best - O(<i>n</i> log <i>n</i>)<br><br>
-			Space complexity (auxiliary):<br>
+			Space complexity:<br>
 			O(1)<br><br>
 			Stable - no
 		</p>`
